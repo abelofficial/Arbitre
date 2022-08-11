@@ -1,3 +1,4 @@
+import AuthButton from "@components/AuthButton";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -14,6 +15,7 @@ const Home: NextPage = () => {
 
       <styles.Main>
         <styles.Title>Home page</styles.Title>
+        <AuthButton />
       </styles.Main>
     </div>
   );
