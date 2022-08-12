@@ -1,12 +1,13 @@
 import { useUser } from "@auth0/nextjs-auth0";
+import MessageScreen from "@components/MessageScreen";
 import * as styles from "./styles";
 
 const AuthButton = () => {
   const { user, error, isLoading } = useUser();
 
-  if (isLoading) return <styles.Text>Loading...</styles.Text>;
+  if (isLoading) return <MessageScreen message='Loading...' />;
 
-  if (error) return <styles.Text>{error.message}</styles.Text>;
+  if (error) return <MessageScreen message={error.message} />;
 
   if (user) {
     console.log("User: ", user);

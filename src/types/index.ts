@@ -1,4 +1,5 @@
 export interface Itheme {
-    white: string;
-    black: string;
-  }
+  white: string;
+  black: string;
+  lightGray: string;
+}
