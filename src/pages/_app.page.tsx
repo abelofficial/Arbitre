@@ -8,13 +8,16 @@ import { withTRPC } from "@trpc/next";
 import { loggerLink } from "@trpc/client/links/loggerLink";
 import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { transformer } from "@services/trpc";
+import Layout from "@components/Layout";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ThemeProvider theme={darkTheme}>
       <UserProvider>
         <GlobalStyles />
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </UserProvider>
     </ThemeProvider>
   );

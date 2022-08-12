@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { dimensions } from "./theme";
 
 export const PageTitle = styled.h1`
   font-size: 3rem;
@@ -64,4 +65,29 @@ export const Link = styled.a`
   letter-spacing: 0.02857em;
   text-transform: capitalize;
   color: rgb(144, 202, 249);
+`;
+
+export interface BaseLinkWithUnderlineProps {
+  current?: boolean;
+}
+
+export const LinkWithUnderline = styled.a<BaseLinkWithUnderlineProps>`
+  position: relative;
+  @media (min-width: ${dimensions.generalBreakpoint}) {
+    ::after {
+      content: "";
+      width: 100%;
+      height: 2px;
+      background-color: ${({ theme }) => theme.primary};
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 0.5rem;
+      transform: scaleX(0);
+      transition: transform 300ms;
+    }
+    :hover::after {
+      ${({ current }) => !current && "transform: scaleX(1);"}
+    }
+  }
 `;
