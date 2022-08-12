@@ -35,3 +35,33 @@ export const HighlightedText = styled.pre`
   letter-spacing: 0.00938em;
   color: ${({ theme }) => theme.lightGray};
 `;
+
+export const Button = styled.button`
+  cursor: pointer;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: uppercase;
+  min-width: 64px;
+  padding: 5px 15px;
+  border-radius: 4px;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border: 1px solid rgba(144, 202, 249, 0.5);
+  color: rgb(144, 202, 249);
+`;
+
+export const Link = styled.a`
+  cursor: pointer;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  text-transform: capitalize;
+  color: rgb(144, 202, 249);
+`;
