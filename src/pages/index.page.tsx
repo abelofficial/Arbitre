@@ -36,6 +36,7 @@ const Home: NextPageWithLayout = () => {
     }
   };
 
+  console.log("Usser: ", user);
   if (!getAllUsers.data) return <MessageScreen message='no users' />;
 
   return (
