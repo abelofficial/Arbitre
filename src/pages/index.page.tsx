@@ -1,16 +1,16 @@
 import AuthButton from "@components/AuthButton";
 import MessageScreen from "@components/MessageScreen";
-import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { trpc } from "@services/trpc";
-import { UserProfile, useUser } from "@auth0/nextjs-auth0";
+import { useUser } from "@auth0/nextjs-auth0";
 import { Button, HighlightedText, Paragraph, Subtitle } from "@styles/common";
 import * as styles from "./index.styles";
-import Spinner from "@components/Spinner";
+import Spinner from "@components/Icons/Spinner";
 import { formatDateLong } from "@utils/date";
+import { NextPageWithLayout } from "@types";
+import UsersList from "@components/UsersList";
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   const utils = trpc.useContext();
   const { user, error, isLoading } = useUser();
   const getAllUsers = trpc.useQuery(["users.all"]);
@@ -21,13 +21,11 @@ const Home: NextPage = () => {
     },
   });
 
-  const errorMsg = error?.message ? error.message : getAllUsers.error?.message;
-
-  if (isLoading || getAllUsers.status === "loading")
+  if (getAllUsers.status === "loading")
     return <MessageScreen message='loading..' />;
 
-  if (isLoading || getAllUsers.status === "error")
-    return <MessageScreen message={errorMsg as string} />;
+  if (getAllUsers.status === "error")
+    return <MessageScreen message={getAllUsers.error.message} />;
 
   const addMeHandler = async () => {
     if (user) {
@@ -56,19 +54,7 @@ const Home: NextPage = () => {
             Add me
           </Button>
         )}
-        {getAllUsers.data.length > 0 ? (
-          getAllUsers.data.map((user) => (
-            <styles.Row key={user.email}>
-              <Paragraph>{user.name as string}</Paragraph>
-              <HighlightedText>{user.email as string} </HighlightedText>
-              <HighlightedText>
-                {formatDateLong(new Date(user.createdAt))}
-              </HighlightedText>
-            </styles.Row>
-          ))
-        ) : (
-          <Subtitle>No users</Subtitle>
-        )}
+        <UsersList users={getAllUsers.data} />
         <AuthButton />
       </styles.Main>
     </div>
