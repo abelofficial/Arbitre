@@ -10,7 +10,6 @@ const AuthButton = () => {
   if (error) return <MessageScreen message={error.message} />;
 
   if (user) {
-    console.log("User: ", user);
     return (
       <div>
         <h2>{user.name}</h2>

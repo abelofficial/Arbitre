@@ -7,7 +7,7 @@ export const createContext = async (
 ) => ({
   req: opts?.req,
   res: opts?.res,
-  prisma: prisma,
+  prisma,
 });
 
 export type Context = trpc.inferAsyncReturnType<typeof createContext>;
