@@ -8,7 +8,7 @@ import * as styles from "./index.styles";
 import Spinner from "@components/Icons/Spinner";
 import { formatDateLong } from "@utils/date";
 import { NextPageWithLayout } from "@types";
-import UsersList from "@components/UsersList";
+import UsersList from "@components/Lists/UsersList";
 
 const Home: NextPageWithLayout = () => {
   const utils = trpc.useContext();
@@ -29,14 +29,14 @@ const Home: NextPageWithLayout = () => {
 
   const addMeHandler = async () => {
     if (user) {
-      return await addUser.mutate({
+      return addUser.mutate({
         name: user.name as string,
         email: user.email as string,
+        picture: user.picture as string,
       });
     }
   };
 
-  console.log("Usser: ", user);
   if (!getAllUsers.data) return <MessageScreen message='no users' />;
 
   return (

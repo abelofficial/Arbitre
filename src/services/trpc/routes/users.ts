@@ -25,14 +25,16 @@ const usersRouter = createRouter()
     input: z.object({
       name: z.string(),
       email: z.string(),
+      picture: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const { name, email } = input;
+      const { name, email, picture } = input;
 
       return ctx.prisma.user.create({
         data: {
           name,
           email,
+          picture,
         },
       });
     },

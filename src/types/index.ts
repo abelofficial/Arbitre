@@ -1,3 +1,4 @@
+import { Project, User } from "@prisma/client";
 import { NextPage } from "next";
 
 export interface Itheme {
@@ -11,3 +12,7 @@ export interface Itheme {
 export type NextPageWithLayout = NextPage & {
   getLayout?: (page: React.ReactElement) => React.ReactNode;
 };
+
+export interface ProjectWithOwner extends Project {
+  owner: User;
+}

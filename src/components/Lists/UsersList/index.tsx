@@ -16,8 +16,8 @@ const UsersList = ({ users }: UsersListProps) => {
     <div>
       {users.map((user) => (
         <styles.Row key={user.email}>
-          <Paragraph>{user.name as string}</Paragraph>
-          <HighlightedText>{user.email as string} </HighlightedText>
+          <Paragraph>{user.name}</Paragraph>
+          <HighlightedText>{user.email} </HighlightedText>
           <HighlightedText>
             {formatDateLong(new Date(user.createdAt))}
           </HighlightedText>
