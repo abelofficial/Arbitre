@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 export const Page = styled.main`
   position: relative;
-  width: 100%;
+
+  width: 100vw;
+  max-width: 100%;
   background: ${({ theme }) => theme.white};
   z-index: ${zIndex.header};
 `;

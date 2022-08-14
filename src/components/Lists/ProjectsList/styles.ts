@@ -1,10 +1,12 @@
+import { dimensions } from "@styles/theme";
 import styled from "styled-components";
 
-export const Row = styled.main`
-  width: 80%;
-  margin: 1rem auto;
+export const Container = styled.section`
+  margin: 0 auto;
+  width: 90%;
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 1rem;
   align-items: center;
-  justify-content: space-space-evenly;
+  justify-content: space--evenly;
 `;

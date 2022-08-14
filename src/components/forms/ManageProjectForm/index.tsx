@@ -3,15 +3,21 @@ import { useForm } from "react-hook-form";
 import { IProjectFormValues, projectFormSchemaResolver } from "./helper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as styles from "./styles";
-import { Button, Form, FormErrorMsg, Paragraph } from "@styles/common";
+import {
+  Button,
+  Form,
+  FormErrorMsg,
+  MultiTextInput,
+  Paragraph,
+} from "@styles/common";
 import Spinner from "@components/Icons/Spinner";
-import { Project } from "@prisma/client";
 
 export interface ManageProjectFormProps {
   isSubmitting: boolean;
   mode: "create" | "update";
   onClose: () => void;
   onSubmitAsync: (p: IProjectFormValues) => Promise<void>;
+  defaultValues?: IProjectFormValues;
 }
 
 const ManageProjectForm = ({
@@ -19,16 +25,21 @@ const ManageProjectForm = ({
   onClose,
   onSubmitAsync,
   isSubmitting,
+  defaultValues,
 }: ManageProjectFormProps) => {
   const {
     formState: { errors, isValidating },
     ...form
   } = useForm<IProjectFormValues>({
     resolver: zodResolver(projectFormSchemaResolver),
+    defaultValues,
   });
 
   const onSubmitHandler = async (data: IProjectFormValues) => {
-    await onSubmitAsync(data);
+    await onSubmitAsync(
+      defaultValues ? { id: defaultValues.id, ...data } : data
+    );
+
     onClose();
   };
 
@@ -52,7 +63,7 @@ const ManageProjectForm = ({
 
       <styles.InputContainer>
         <styles.Label htmlFor='description'>Description</styles.Label>
-        <styles.Input type='text' {...form.register("description")} />
+        <MultiTextInput {...form.register("description")} />
         {errors.description && (
           <Paragraph>
             <FormErrorMsg>{errors.description.message}</FormErrorMsg>
