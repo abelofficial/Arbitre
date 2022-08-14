@@ -10,9 +10,14 @@ import {
   CurrentUserContextInterface,
   CurrentUserContext,
 } from "@components/Providers/currentUser";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import Modal from "@components/hocs/Modal";
+import ManageProjectForm from "@components/forms/ManageProjectForm";
+import { Project } from "@prisma/client";
+import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
 
 const Projects: NextPageWithLayout = () => {
+  const [openModal, setOpenModal] = useState(false);
   const utils = trpc.useContext();
   const { currentUser } =
     useContext<CurrentUserContextInterface>(CurrentUserContext);
@@ -23,13 +28,15 @@ const Projects: NextPageWithLayout = () => {
     },
   });
 
-  const addProjectHandler = () => {
+  const addProjectHandler = async (p: IProjectFormValues) => {
     if (currentUser) {
-      return addProject.mutate({
-        name: "Template text",
-        description: "Template text description.",
-        ownerId: currentUser.id as string,
-      });
+      try {
+        await addProject.mutateAsync({
+          name: p.name,
+          description: p.description,
+          ownerId: currentUser.id as string,
+        });
+      } catch (e) {}
     }
   };
 
@@ -44,10 +51,22 @@ const Projects: NextPageWithLayout = () => {
         <styles.Title>Projects page</styles.Title>
         {currentUser && (
           <>
-            <Button onClick={addProjectHandler}>
-              {addProject.isLoading && <Spinner />}
-              Add new project
-            </Button>
+            <Modal
+              actionButton={
+                <Button color='green' onClick={() => setOpenModal(true)}>
+                  {addProject.isLoading && <Spinner />}
+                  Add new project
+                </Button>
+              }
+              show={openModal}
+            >
+              <ManageProjectForm
+                isSubmitting={addProject.isLoading}
+                mode='create'
+                onClose={() => setOpenModal(false)}
+                onSubmitAsync={addProjectHandler}
+              />
+            </Modal>
             <ProjectsList ownerId={currentUser.id} />
           </>
         )}

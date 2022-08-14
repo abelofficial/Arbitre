@@ -92,3 +92,40 @@ export const LinkWithUnderline = styled.a<BaseLinkWithUnderlineProps>`
     }
   }
 `;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: transparent;
+  max-width: 30rem;
+  width: 100%;
+  min-width: 15rem;
+  @media (min-width: ${dimensions.generalBreakpoint}) {
+    min-width: 20rem;
+  }
+`;
+
+export const TextInput = styled.input`
+  width: 100%;
+  border-radius: ${dimensions.borderRadius};
+  padding: 0.5rem 1.7rem 0.5rem 0.5rem;
+  transition: all 0.3s ease-in-out;
+  border: 0.1rem solid ${({ theme }) => theme.lightGray};
+  color: ${({ theme }) => theme.black};
+  background-color: ${({ theme }) => theme.white};
+  outline: none;
+  ::placeholder {
+    color: transparent;
+    font-style: italic;
+  }
+  :focus {
+    border: 0.1rem solid ${({ theme }) => theme.primary};
+  }
+`;
+
+export const FormErrorMsg = styled.p`
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: "red";
+`;
