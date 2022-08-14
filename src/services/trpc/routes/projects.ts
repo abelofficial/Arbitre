@@ -1,33 +1,50 @@
 import { z } from "zod";
 import createRouter from "../createRouter";
 
+const select = {
+  id: true,
+  name: true,
+  description: true,
+  createdAt: true,
+  updatedAt: true,
+  ownerId: true,
+  owner: true,
+};
+
 const projectsRouter = createRouter()
   .query("all", {
-    async resolve({ ctx }) {
+    input: z.object({
+      ownerId: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { ownerId } = input;
+
       return ctx.prisma.project.findMany({
+        where: {
+          ownerId,
+        },
         orderBy: {
           name: "asc",
         },
-        select: {
-          id: true,
-          name: true,
-          description: true,
-          createdAt: true,
-          updatedAt: true,
-          ownerId: true,
-          owner: true,
-        },
+        select,
       });
     },
   })
   .query("oneById", {
     input: z.object({
       id: z.string(),
+      ownerId: z.string(),
     }),
     async resolve({ ctx, input }) {
-      const { id } = input;
+      const { id, ownerId } = input;
 
-      return ctx.prisma.project.findUnique({ where: { id } });
+      return ctx.prisma.project.findFirst({
+        where: {
+          id,
+          ownerId,
+        },
+        select,
+      });
     },
   })
   .mutation("add", {
@@ -45,6 +62,7 @@ const projectsRouter = createRouter()
           description,
           ownerId,
         },
+        select,
       });
     },
   });

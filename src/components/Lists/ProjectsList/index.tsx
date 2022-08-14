@@ -1,15 +1,25 @@
-import { Project, User } from "@prisma/client";
+import MessageScreen from "@components/MessageScreen";
+import { trpc } from "@services/trpc";
 import { HighlightedText, Subtitle, Paragraph } from "@styles/common";
-import { ProjectWithOwner } from "@types";
 import { formatDateLong } from "@utils/date";
 import React from "react";
 import * as styles from "./styles";
 
 export interface UsersListProps {
-  projects: ProjectWithOwner[];
+  ownerId: string;
 }
 
-const UsersList = ({ projects }: UsersListProps) => {
+const UsersList = ({ ownerId }: UsersListProps) => {
+  const { status, data: projects } = trpc.useQuery([
+    "projects.all",
+    { ownerId },
+  ]);
+
+  if (status === "loading") return <MessageScreen message='loading..' />;
+
+  if (!projects || status === "error")
+    return <MessageScreen message='Something went wrong' />;
+
   if (projects.length === 0) {
     return <Subtitle>No projects</Subtitle>;
   }
