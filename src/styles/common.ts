@@ -39,6 +39,11 @@ export const HighlightedText = styled.pre`
 
 export const Button = styled.button`
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-around;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-weight: 500;
   font-size: 0.875rem;
@@ -48,10 +53,6 @@ export const Button = styled.button`
   min-width: 64px;
   padding: 5px 15px;
   border-radius: 4px;
-  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   border: 1px solid rgba(144, 202, 249, 0.5);
   color: rgb(144, 202, 249);
 `;
