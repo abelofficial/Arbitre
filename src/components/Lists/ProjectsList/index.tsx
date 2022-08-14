@@ -1,4 +1,5 @@
 import MessageScreen from "@components/MessageScreen";
+import { Project } from "@prisma/client";
 import { trpc } from "@services/trpc";
 import { HighlightedText, Subtitle, Paragraph } from "@styles/common";
 import { formatDateLong } from "@utils/date";
@@ -26,11 +27,10 @@ const UsersList = ({ ownerId }: UsersListProps) => {
 
   return (
     <div>
-      {projects.map((project) => (
+      {projects.map((project: Project) => (
         <styles.Row key={project.id}>
           <Paragraph>{project.name}</Paragraph>
           <HighlightedText>{project.description} </HighlightedText>
-          <HighlightedText>By @{project.owner.name} </HighlightedText>
           <HighlightedText>
             {formatDateLong(new Date(project.createdAt))}
           </HighlightedText>

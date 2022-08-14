@@ -1,4 +1,4 @@
-import { useUser, UserProfile } from "@auth0/nextjs-auth0";
+import { UserProfile } from "@auth0/nextjs-auth0";
 import MessageScreen from "@components/MessageScreen";
 import { User } from "@prisma/client";
 import { trpc } from "@services/trpc";
