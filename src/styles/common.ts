@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { dimensions } from "./theme";
 
 export const PageTitle = styled.h1`
@@ -29,7 +29,7 @@ export const Paragraph = styled.p`
   letter-spacing: 0.00938em;
 `;
 
-export const HighlightedText = styled.pre`
+export const HighlightedText = styled.p`
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -91,4 +91,56 @@ export const LinkWithUnderline = styled.a<BaseLinkWithUnderlineProps>`
       ${({ current }) => !current && "transform: scaleX(1);"}
     }
   }
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: transparent;
+  max-width: 30rem;
+  width: 100%;
+  min-width: 15rem;
+  @media (min-width: ${dimensions.generalBreakpoint}) {
+    min-width: 20rem;
+  }
+`;
+
+const inputStyle = css`
+  width: 100%;
+  border-radius: ${dimensions.borderRadius};
+  padding: 0.5rem 1.7rem 0.5rem 0.5rem;
+  transition: all 0.3s ease-in-out;
+  border: 0.1rem solid ${({ theme }) => theme.lightGray};
+  color: ${({ theme }) => theme.black};
+  background-color: ${({ theme }) => theme.white};
+  outline: none;
+  box-sizing: border-box;
+
+  resize: none;
+  ::placeholder {
+    color: transparent;
+    font-style: italic;
+  }
+  :focus {
+    border: 0.1rem solid ${({ theme }) => theme.primary};
+  }
+`;
+export const TextInput = styled.input`
+  ${inputStyle}
+`;
+
+export const MultiTextInput = styled.textarea`
+  ${inputStyle}
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  text-overflow: break;
+`;
+
+export const FormErrorMsg = styled.p`
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: "red";
 `;

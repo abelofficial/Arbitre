@@ -65,6 +65,27 @@ const projectsRouter = createRouter()
         select,
       });
     },
+  })
+  .mutation("update", {
+    input: z.object({
+      id: z.string(),
+      name: z.string(),
+      description: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { name, description, id } = input;
+
+      return ctx.prisma.project.update({
+        where: {
+          id,
+        },
+        data: {
+          name,
+          description,
+        },
+        select,
+      });
+    },
   });
 
 export default projectsRouter;

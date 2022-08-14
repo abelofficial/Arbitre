@@ -1,8 +1,8 @@
+import ProjectsCard from "@components/cards/ProjectsCard";
 import MessageScreen from "@components/MessageScreen";
 import { Project } from "@prisma/client";
 import { trpc } from "@services/trpc";
-import { HighlightedText, Subtitle, Paragraph } from "@styles/common";
-import { formatDateLong } from "@utils/date";
+import { Subtitle } from "@styles/common";
 import React from "react";
 import * as styles from "./styles";
 
@@ -26,17 +26,11 @@ const UsersList = ({ ownerId }: UsersListProps) => {
   }
 
   return (
-    <div>
-      {projects.map((project: Project) => (
-        <styles.Row key={project.id}>
-          <Paragraph>{project.name}</Paragraph>
-          <HighlightedText>{project.description} </HighlightedText>
-          <HighlightedText>
-            {formatDateLong(new Date(project.createdAt))}
-          </HighlightedText>
-        </styles.Row>
+    <styles.Container>
+      {projects.map((p: Project) => (
+        <ProjectsCard key={p.id} project={p} />
       ))}
-    </div>
+    </styles.Container>
   );
 };
 
