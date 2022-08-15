@@ -1,7 +1,7 @@
 import { useUser } from "@auth0/nextjs-auth0";
-import MessageScreen from "@components/MessageScreen";
-import Navbar from "@components/Navbar";
-import { CurrentUserProvider } from "@components/Providers/currentUser";
+import MessageScreen from "@sections/MessageScreen";
+import Navbar from "@sections/Navbar";
+import { CurrentUserProvider } from "@provider/currentUser";
 import { Subtitle } from "@styles/common";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";

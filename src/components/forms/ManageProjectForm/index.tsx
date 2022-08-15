@@ -10,7 +10,7 @@ import {
   MultiTextInput,
   Paragraph,
 } from "@styles/common";
-import Spinner from "@components/Icons/Spinner";
+import Spinner from "@components/icon/Spinner";
 
 export interface ManageProjectFormProps {
   isSubmitting: boolean;

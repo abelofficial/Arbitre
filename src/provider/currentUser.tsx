@@ -1,9 +1,10 @@
 import { UserProfile } from "@auth0/nextjs-auth0";
-import MessageScreen from "@components/MessageScreen";
+import MessageScreen from "@sections/MessageScreen";
 import { User } from "@prisma/client";
 import { trpc } from "@services/trpc";
 import { useRouter } from "next/router";
-import { createContext, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { DbActionsContextInterface, DbActionsContext } from "./dbActions";
 
 export interface CurrentUserContextInterface {
   currentUser: User | undefined;
@@ -23,31 +24,22 @@ export const CurrentUserProvider = ({
   authUser,
 }: CurrentUserProviderProps) => {
   const router = useRouter();
-  const utils = trpc.useContext();
+  const { addUserHandler } =
+    useContext<DbActionsContextInterface>(DbActionsContext);
+
   const email = authUser?.email;
   const { status: currentUserStatus, data: currentUser } = trpc.useQuery(
     ["users.oneByEmail", { email: email as string }],
     { enabled: !!email, refetchOnWindowFocus: false, refetchOnMount: false }
   );
 
-  const addUser = trpc.useMutation("users.add", {
-    async onSuccess() {
-      await utils.invalidateQueries(["users.all"]);
-    },
-  });
-
   useEffect(() => {
-    const addUserHandler = (newUser: UserProfile) => {
-      addUser.mutate({
-        name: newUser.name as string,
-        email: newUser.email as string,
-        picture: newUser.picture as string,
-      });
+    const registerNewUser = async () => {
+      await addUserHandler(authUser);
       router.push("/");
     };
-
     if (email && !currentUser && currentUserStatus === "success") {
-      addUserHandler(authUser);
+      registerNewUser();
     }
   }, [email, currentUser, currentUserStatus]);
 

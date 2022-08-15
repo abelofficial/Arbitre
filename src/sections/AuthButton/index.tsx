@@ -1,5 +1,5 @@
 import { useUser } from "@auth0/nextjs-auth0";
-import MessageScreen from "@components/MessageScreen";
+import MessageScreen from "@sections/MessageScreen";
 import * as styles from "./styles";
 
 const AuthButton = () => {

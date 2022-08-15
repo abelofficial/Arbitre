@@ -1,11 +1,14 @@
 import ManageProjectForm from "@components/forms/ManageProjectForm";
 import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
 import Modal from "@components/hocs/Modal";
-import Spinner from "@components/Icons/Spinner";
+import Spinner from "@components/icon/Spinner";
 import { Project } from "@prisma/client";
-import { trpc } from "@services/trpc";
+import {
+  DbActionsContextInterface,
+  DbActionsContext,
+} from "@provider/dbActions";
 import { Paragraph, HighlightedText, Button } from "@styles/common";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import * as styles from "./styles";
 
 export interface ProjectsCardProps {
@@ -13,23 +16,9 @@ export interface ProjectsCardProps {
 }
 
 const ProjectsCard = ({ project }: ProjectsCardProps) => {
-  const utils = trpc.useContext();
   const [openModal, setOpenModal] = useState(false);
-  const updateProject = trpc.useMutation("projects.update", {
-    async onSuccess() {
-      return await utils.invalidateQueries(["projects.all"]);
-    },
-  });
-
-  const updateProjectHandler = async (p: IProjectFormValues) => {
-    try {
-      await updateProject.mutateAsync({
-        id: p.id as string,
-        name: p.name,
-        description: p.description,
-      });
-    } catch (e) {}
-  };
+  const { updateProjectStatus, updateProjectHandler } =
+    useContext<DbActionsContextInterface>(DbActionsContext);
 
   return (
     <styles.Card key={project.id}>
@@ -38,7 +27,7 @@ const ProjectsCard = ({ project }: ProjectsCardProps) => {
       <Modal
         actionButton={
           <Button color='green' onClick={() => setOpenModal(true)}>
-            {updateProject.isLoading && <Spinner />}
+            {updateProjectStatus && <Spinner />}
             Update project
           </Button>
         }
@@ -46,7 +35,7 @@ const ProjectsCard = ({ project }: ProjectsCardProps) => {
       >
         <ManageProjectForm
           defaultValues={project}
-          isSubmitting={updateProject.isLoading}
+          isSubmitting={updateProjectStatus}
           mode='update'
           onClose={() => setOpenModal(false)}
           onSubmitAsync={updateProjectHandler}

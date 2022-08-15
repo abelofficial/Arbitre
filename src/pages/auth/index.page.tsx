@@ -1,4 +1,4 @@
-import AuthButton from "@components/AuthButton";
+import AuthButton from "@sections/AuthButton";
 import { NextPageWithLayout } from "@types";
 import Head from "next/head";
 import * as styles from "./styles";

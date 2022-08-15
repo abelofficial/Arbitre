@@ -1,6 +1,6 @@
 import React, { useState, memo } from "react";
 import Link from "next/link";
-import BurgerButton from "@components/Icons/BurgerButton";
+import BurgerButton from "@components/icon/BurgerButton";
 import * as styles from "./styles";
 
 const NavBar = () => {
