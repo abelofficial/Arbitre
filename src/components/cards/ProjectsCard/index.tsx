@@ -26,7 +26,7 @@ const ProjectsCard = ({ project }: ProjectsCardProps) => {
       <HighlightedText>{project.description} </HighlightedText>
       <Modal
         actionButton={
-          <Button color='green' onClick={() => setOpenModal(true)}>
+          <Button color='success' onClick={() => setOpenModal(true)}>
             {updateProjectStatus && <Spinner />}
             Update project
           </Button>

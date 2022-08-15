@@ -39,7 +39,6 @@ const ManageProjectForm = ({
     await onSubmitAsync(
       defaultValues ? { id: defaultValues.id, ...data } : data
     );
-
     onClose();
   };
 
@@ -72,11 +71,16 @@ const ManageProjectForm = ({
       </styles.InputContainer>
 
       <styles.ButtonContainer>
-        <Button type='submit' disabled={loading}>
+        <Button color='success' type='submit' disabled={loading}>
           {loading && <Spinner />}
           {mode}
         </Button>
-        <Button disabled={loading} onClick={closeModal} type='button'>
+        <Button
+          color='danger'
+          disabled={loading}
+          onClick={closeModal}
+          type='button'
+        >
           Cancel
         </Button>
       </styles.ButtonContainer>

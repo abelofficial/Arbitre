@@ -7,6 +7,9 @@ export interface Itheme {
   lightGray: string;
   primary: string;
   primaryShadow: string;
+  red: string;
+  green: string;
+  yellow: string;
 }
 
 export type NextPageWithLayout = NextPage & {

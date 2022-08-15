@@ -6,6 +6,9 @@ export const lightTheme: DefaultTheme = {
   lightGray: "#f8f8f8",
   primary: "#00bcd4",
   primaryShadow: 207 + "," + 102 + "," + 121,
+  green: "#80d202",
+  red: "#f12f2a",
+  yellow: "#ffc000",
 };
 
 export const darkTheme: DefaultTheme = {
@@ -14,6 +17,9 @@ export const darkTheme: DefaultTheme = {
   lightGray: "#5f5f5f",
   primary: "#00bcd4",
   primaryShadow: 207 + "," + 102 + "," + 121,
+  green: "#12852c",
+  red: "#f12f2a",
+  yellow: "#ffc000",
 };
 
 export const shadows = {
