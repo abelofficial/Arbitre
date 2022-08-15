@@ -1,7 +1,7 @@
 import ManageProjectForm from "@components/forms/ManageProjectForm";
 import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
 import Modal from "@components/hocs/Modal";
-import Spinner from "@components/icon/Spinner";
+import Spinner from "@components/icons/Spinner";
 import { Project } from "@prisma/client";
 import {
   DbActionsContextInterface,

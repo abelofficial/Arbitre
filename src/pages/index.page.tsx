@@ -3,7 +3,7 @@ import Head from "next/head";
 import { LinkWithUnderline, Subtitle } from "@styles/common";
 import * as styles from "./index.styles";
 import { NextPageWithLayout } from "@types";
-import UsersList from "@components/list/UsersList";
+import UsersList from "@components/lists/UsersList";
 import Link from "next/link";
 
 const Home: NextPageWithLayout = () => {

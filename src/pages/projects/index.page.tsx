@@ -3,9 +3,9 @@ import Head from "next/head";
 import { trpc } from "@services/trpc";
 import { Button } from "@styles/common";
 import * as styles from "./styles";
-import Spinner from "@components/icon/Spinner";
+import Spinner from "@components/icons/Spinner";
 import { NextPageWithLayout } from "@types";
-import ProjectsList from "@components/list/ProjectsList";
+import ProjectsList from "@components/lists/ProjectsList";
 import {
   CurrentUserContextInterface,
   CurrentUserContext,
