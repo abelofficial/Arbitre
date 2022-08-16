@@ -14,7 +14,7 @@ export const Card = styled.div`
   border-radius: ${dimensions.borderRadius};
   box-shadow: ${({
     theme,
-  }) => `0px 2px 1px -1px rgba(${theme.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.primaryShadow}, 0.12)`};
+  }) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
+      0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
+     0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`};
 `;

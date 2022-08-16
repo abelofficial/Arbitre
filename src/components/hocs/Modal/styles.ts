@@ -15,12 +15,12 @@ export const Container = styled.dialog`
   justify-content: center;
   padding: 1rem;
   margin-top: ${dimensions.navbarHeight};
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.colors.black};
 `;
 
 export const Modal = styled.div`
   font-size: 1.2rem;
-  background-color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.colors.white};
   padding: 1rem;
   border-radius: ${dimensions.borderRadius};
   max-width: 100%;
@@ -28,7 +28,7 @@ export const Modal = styled.div`
   overflow-y: auto;
   box-shadow: ${({
     theme,
-  }) => `0px 2px 1px -1px rgba(${theme.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.primaryShadow}, 0.12)`};
+  }) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
+      0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
+     0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`};
 `;

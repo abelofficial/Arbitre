@@ -12,20 +12,18 @@ export const Burger = styled.button`
   width: 2.6rem;
   height: 2.6rem;
   position: fixed;
+  background-color: transparent;
   z-index: ${zIndex.menuToggleButton};
-  :hover {
-    transform: scale(1.05);
-  }
 `;
 
 export const Div = styled.div<DivProps>`
   transform-origin: left;
   transition: transform 500ms ease-in-out;
-  height: 0.15rem;
-  background-color: ${({ theme }) => theme.lightGray};
-  width: calc(100% - 0.9rem);
+  height: 0.12rem;
+  background-color: ${({ theme }) => theme.colors.lightGray};
+  width: calc(100% - 0.8rem);
   left: 0.45rem;
-  border-radius: 0.1rem;
+  border-radius: 0.02rem;
   position: absolute;
   :first-child {
     top: 0.75rem;

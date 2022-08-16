@@ -6,14 +6,17 @@ export const Header = styled.header`
   position: fixed;
   top: 0;
   height: ${dimensions.navbarHeight};
-  background: ${({ theme }) => theme.white};
+  background: ${({ theme }) => theme.colors.white};
   z-index: ${zIndex.header};
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   box-shadow: ${({
     theme,
-  }) => `0px 2px 1px -1px rgba(${theme.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.primaryShadow}, 0.12)`};
+  }) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
+      0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
+     0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`};
 `;
 
 export const Nav = styled.nav`
