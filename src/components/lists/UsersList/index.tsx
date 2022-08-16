@@ -5,6 +5,7 @@ import { HighlightedText, Subtitle, Paragraph } from "@styles/common";
 import { formatDateLong } from "@utils/date";
 import React from "react";
 import * as styles from "./styles";
+import UsersCard from "@components/cards/UserCard";
 
 const UsersList = () => {
   const { status, error, data: users } = trpc.useQuery(["users.all"]);
@@ -18,17 +19,13 @@ const UsersList = () => {
     return <Subtitle>No users</Subtitle>;
   }
   return (
-    <div>
+    <>
       {users.map((user: User) => (
         <styles.Row key={user.email}>
-          <Paragraph>{user.name}</Paragraph>
-          <HighlightedText>{user.email} </HighlightedText>
-          <HighlightedText>
-            {formatDateLong(new Date(user.createdAt))}
-          </HighlightedText>
+          <UsersCard user={user} />
         </styles.Row>
       ))}
-    </div>
+    </>
   );
 };
 
