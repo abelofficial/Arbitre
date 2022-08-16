@@ -1,24 +1,31 @@
-import { useUser } from "@auth0/nextjs-auth0";
-import MessageScreen from "@sections/MessageScreen";
-import * as styles from "./styles";
+import {
+  CurrentUserContext,
+  CurrentUserContextInterface,
+} from "@provider/currentUser";
+import { HighlightedText, LinkWithUnderline, Title } from "@styles/common";
+import Link from "next/link";
+import { useContext } from "react";
 
 const AuthButton = () => {
-  const { user, error, isLoading } = useUser();
+  const { currentUser } =
+    useContext<CurrentUserContextInterface>(CurrentUserContext);
 
-  if (isLoading) return <MessageScreen message='Loading...' />;
-
-  if (error) return <MessageScreen message={error.message} />;
-
-  if (user) {
+  if (currentUser) {
     return (
-      <div>
-        <h2>{user.name}</h2>
-        <p>{user.email}</p>
-        <styles.Text href='/api/auth/logout'>Logout</styles.Text>
-      </div>
+      <Link href='/api/auth/logout' passHref>
+        <LinkWithUnderline href='dummy'>
+          <HighlightedText color='danger'>sign out</HighlightedText>
+        </LinkWithUnderline>
+      </Link>
     );
   }
-  return <styles.Text href='/api/auth/login'>Login</styles.Text>;
+  return (
+    <Link href='/api/auth/login' passHref>
+      <LinkWithUnderline href='dummy'>
+        <Title>Log in</Title>
+      </LinkWithUnderline>
+    </Link>
+  );
 };
 
 export default AuthButton;

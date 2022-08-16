@@ -1,6 +1,54 @@
 import styled, { css } from "styled-components";
 import { dimensions } from "./theme";
 
+export interface StatusColorStyleProps {
+  color?: "default" | "primary" | "danger" | "success";
+}
+
+export const StatusColorStyle = (isText = false) => css<StatusColorStyleProps>`
+  ${({ color = "default", theme }) => {
+    if (color === "danger") {
+      return isText
+        ? css`
+            color: ${theme.red} !important;
+          `
+        : css`
+            background-color: ${theme.red};
+            color: ${theme.white};
+          `;
+    }
+    if (color === "success") {
+      return isText
+        ? css`
+            color: ${theme.green} !important;
+          `
+        : css`
+            background-color: ${theme.green};
+            color: ${theme.white};
+          `;
+    }
+    if (color === "primary") {
+      return isText
+        ? css`
+            color: ${theme.primary} !important;
+          `
+        : css`
+            background-color: ${theme.primary};
+            color: ${theme.white};
+          `;
+    }
+
+    if (isText) {
+      return css`
+        color: ${theme.lightGray} !important;
+      `;
+    }
+    return css`
+      background-color: ${theme.black};
+      color: ${theme.white};
+    `;
+  }}
+`;
 export const PageTitle = styled.h1`
   font-size: 3rem;
   font-weight: 300;
@@ -30,6 +78,7 @@ export const Paragraph = styled.p`
 `;
 
 export const HighlightedText = styled.p`
+  ${StatusColorStyle(true)}
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -43,7 +92,11 @@ interface ButtonProps {
 }
 
 export const Button = styled.button<ButtonProps>`
-  display: inline-block;
+  ${StatusColorStyle()}
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
   width: max-content;
   transition: transform 300ms;
   text-transform: capitalize;
@@ -67,24 +120,7 @@ export const Button = styled.button<ButtonProps>`
       border-radius: 0.5rem;
     `;
   }}
-  ${({ color = "primary", theme }) => {
-    if (color === "danger") {
-      return css`
-        background-color: ${theme.red};
-        color: ${theme.white};
-      `;
-    }
-    if (color === "success") {
-      return css`
-        background-color: ${theme.green};
-        color: ${theme.white};
-      `;
-    }
-    return css`
-      background-color: ${theme.primary};
-      color: ${theme.white};
-    `;
-  }}
+
   :hover {
     transform: scale(1.02);
     box-shadow: 0 3px 15px #00000015;

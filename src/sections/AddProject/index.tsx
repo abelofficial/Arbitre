@@ -23,7 +23,7 @@ const AddProject = ({ currentUser }: AddProjectProps) => {
     <>
       <Modal
         actionButton={
-          <Button color='green' onClick={() => setOpenModal(true)}>
+          <Button onClick={() => setOpenModal(true)}>
             {addProjectStatus && <Spinner />}
             Add new project
           </Button>
