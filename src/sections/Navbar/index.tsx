@@ -3,12 +3,17 @@ import UserProfile from "@sections/UserProfile";
 import Link from "next/link";
 import BurgerButton from "@components/icons/BurgerButton";
 import * as styles from "./styles";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDrawer, closeDrawer, openDrawer } from "@store/slices/config";
+import FullScreenNavbar from "@sections/FullScreenNavbar";
 
 const NavBar = () => {
-  const [isContentShowing, setIsContentShowing] = useState(false);
+  const isDrawerShowing = useSelector(selectDrawer);
+  const dispatch = useDispatch();
 
   const handleContentClick = () => {
-    setIsContentShowing((state) => !state);
+    if (isDrawerShowing) return dispatch(closeDrawer());
+    dispatch(openDrawer());
   };
 
   return (
@@ -22,13 +27,13 @@ const NavBar = () => {
           </Link>
         </styles.LogoContainer>
         <styles.SectionContainer>
-          <UserProfile />
           <BurgerButton
-            isShowing={isContentShowing}
+            isShowing={isDrawerShowing}
             handleClick={handleContentClick}
           />
         </styles.SectionContainer>
       </styles.Nav>
+      <FullScreenNavbar />
     </styles.Header>
   );
 };

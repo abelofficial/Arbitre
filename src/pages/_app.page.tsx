@@ -10,18 +10,22 @@ import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
 import { transformer } from "@services/trpc";
 import Layout from "@sections/Layout";
 import { DbActionsProvider } from "@provider/dbActions";
+import { Provider as StateProvider } from "react-redux";
+import store from "@store";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <DbActionsProvider>
-      <ThemeProvider theme={darkTheme}>
-        <UserProvider>
-          <GlobalStyles />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </UserProvider>
-      </ThemeProvider>
+      <StateProvider store={store}>
+        <ThemeProvider theme={darkTheme}>
+          <UserProvider>
+            <GlobalStyles />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </UserProvider>
+        </ThemeProvider>
+      </StateProvider>
     </DbActionsProvider>
   );
 };
