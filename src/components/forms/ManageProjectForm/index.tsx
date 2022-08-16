@@ -49,7 +49,7 @@ const ManageProjectForm = ({
 
   const loading = isValidating || isSubmitting;
   return (
-    <Form onSubmit={form.handleSubmit(onSubmitHandler)}>
+    <styles.Form onSubmit={form.handleSubmit(onSubmitHandler)}>
       <styles.InputContainer>
         <styles.Label htmlFor='name'>Name</styles.Label>
         <styles.Input type='text' {...form.register("name")} />
@@ -84,7 +84,7 @@ const ManageProjectForm = ({
           Cancel
         </Button>
       </styles.ButtonContainer>
-    </Form>
+    </styles.Form>
   );
 };
 

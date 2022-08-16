@@ -23,8 +23,8 @@ export const Spinner = styled.div`
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 0.3rem solid ${({ theme }) => theme.lightGray};
-  border-top-color: ${({ theme }) => theme.primary};
+  border: 0.3rem solid ${({ theme }) => theme.colors.lightGray};
+  border-top-color: ${({ theme }) => theme.colors.primary};
   animation-name: spin;
   animation-duration: 1s;
   animation-iteration-count: infinite;

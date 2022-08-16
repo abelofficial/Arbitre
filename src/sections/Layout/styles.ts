@@ -6,7 +6,7 @@ export const Page = styled.main`
 
   width: 100vw;
   max-width: 100%;
-  background: ${({ theme }) => theme.white};
+  background: ${({ theme }) => theme.colors.white};
   z-index: ${zIndex.header};
 `;
 

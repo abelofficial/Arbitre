@@ -1,4 +1,4 @@
-import { dimensions } from "@styles/theme";
+import { dimensions, shadows } from "@styles/theme";
 import styled from "styled-components";
 
 export const Card = styled.div`
@@ -12,9 +12,5 @@ export const Card = styled.div`
   padding: 1rem;
   justify-content: flex-start;
   border-radius: ${dimensions.borderRadius};
-  box-shadow: ${({
-    theme,
-  }) => `0px 2px 1px -1px rgba(${theme.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.primaryShadow}, 0.12)`};
+  box-shadow: ${shadows.md}; ;
 `;

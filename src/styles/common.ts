@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { dimensions } from "./theme";
+import { dimensions, shadows } from "./theme";
 
 export interface StatusColorStyleProps {
   color?: "default" | "primary" | "danger" | "success";
@@ -10,42 +10,42 @@ export const StatusColorStyle = (isText = false) => css<StatusColorStyleProps>`
     if (color === "danger") {
       return isText
         ? css`
-            color: ${theme.red} !important;
+            color: ${theme.colors.red} !important;
           `
         : css`
-            background-color: ${theme.red};
-            color: ${theme.white};
+            background-color: ${theme.colors.red};
+            color: ${theme.colors.white};
           `;
     }
     if (color === "success") {
       return isText
         ? css`
-            color: ${theme.green} !important;
+            color: ${theme.colors.green} !important;
           `
         : css`
-            background-color: ${theme.green};
-            color: ${theme.white};
+            background-color: ${theme.colors.green};
+            color: ${theme.colors.white};
           `;
     }
     if (color === "primary") {
       return isText
         ? css`
-            color: ${theme.primary} !important;
+            color: ${theme.colors.primary} !important;
           `
         : css`
-            background-color: ${theme.primary};
-            color: ${theme.white};
+            background-color: ${theme.colors.primary};
+            color: ${theme.colors.white};
           `;
     }
 
     if (isText) {
       return css`
-        color: ${theme.lightGray} !important;
+        color: ${theme.colors.lightGray} !important;
       `;
     }
     return css`
-      background-color: ${theme.black};
-      color: ${theme.white};
+      background-color: ${theme.colors.black};
+      color: ${theme.colors.white};
     `;
   }}
 `;
@@ -83,7 +83,7 @@ export const HighlightedText = styled.p`
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0.00938em;
-  color: ${({ theme }) => theme.lightGray};
+  color: ${({ theme }) => theme.colors.lightGray};
 `;
 
 interface ButtonProps {
@@ -101,11 +101,7 @@ export const Button = styled.button<ButtonProps>`
   transition: transform 300ms;
   text-transform: capitalize;
   border-radius: ${dimensions.borderRadius};
-  box-shadow: ${({
-    theme,
-  }) => `0px 2px 1px -1px rgba(${theme.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.primaryShadow}, 0.12)`};
+  box-shadow: ${shadows.lg};
 
   ${({ size = "normal" }) => {
     if (size === "small") {
@@ -123,7 +119,7 @@ export const Button = styled.button<ButtonProps>`
 
   :hover {
     transform: scale(1.02);
-    box-shadow: 0 3px 15px #00000015;
+    box-shadow: ${shadows.sm};
   }
   :disabled {
     opacity: 0.7;
@@ -156,7 +152,7 @@ export const LinkWithUnderline = styled.a<BaseLinkWithUnderlineProps>`
       content: "";
       width: 100%;
       height: 2px;
-      background-color: ${({ theme }) => theme.primary};
+      background-color: ${({ theme }) => theme.colors.primary};
       position: absolute;
       top: 100%;
       left: 0;
@@ -188,9 +184,9 @@ const inputStyle = css`
   border-radius: ${dimensions.borderRadius};
   padding: 0.5rem 1.7rem 0.5rem 0.5rem;
   transition: all 0.3s ease-in-out;
-  border: 0.1rem solid ${({ theme }) => theme.lightGray};
-  color: ${({ theme }) => theme.black};
-  background-color: ${({ theme }) => theme.white};
+  border: 0.1rem solid ${({ theme }) => theme.colors.lightGray};
+  color: ${({ theme }) => theme.colors.black};
+  background-color: ${({ theme }) => theme.colors.white};
   outline: none;
   box-sizing: border-box;
 
@@ -200,7 +196,7 @@ const inputStyle = css`
     font-style: italic;
   }
   :focus {
-    border: 0.1rem solid ${({ theme }) => theme.primary};
+    border: 0.1rem solid ${({ theme }) => theme.colors.primary};
   }
 `;
 export const TextInput = styled.input`
