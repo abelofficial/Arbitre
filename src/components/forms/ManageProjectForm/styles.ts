@@ -2,6 +2,12 @@ import styled from "styled-components";
 import { TextInput } from "@styles/common";
 import { dimensions } from "@styles/theme";
 
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem;
+`;
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -21,7 +27,7 @@ export const InputContainer = styled.div`
 `;
 
 export const Input = styled(TextInput)`
-  min-width: 3rem;
+  min-width: 4rem;
   :focus {
     padding-left: 1rem;
   }

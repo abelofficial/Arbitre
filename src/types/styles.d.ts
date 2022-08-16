@@ -1,5 +1,5 @@
 import "styled-components";
-
+import { IShadows } from "./index";
 declare module "styled-components" {
   export interface DefaultTheme {
     colors: {

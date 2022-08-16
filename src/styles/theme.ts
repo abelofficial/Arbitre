@@ -1,21 +1,17 @@
 import styled, { css, DefaultTheme } from "styled-components";
 
+const primaryShadow = 207 + "," + 102 + "," + 121;
+
 export const shadows = {
-  sm: `${(
-    theme: DefaultTheme
-  ) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`}`,
-  md: `${(
-    theme: DefaultTheme
-  ) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
-        0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
-       0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`}`,
-  lg: `${(
-    theme: DefaultTheme
-  ) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
-          0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
-         0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`}`,
+  sm: `0px 2px 1px -1px rgba(${primaryShadow}, 0.2),
+      0px 1px 1px 0px rgba(${primaryShadow}, 0.14),
+     0px 1px 3px 0px rgba(${primaryShadow}, 0.12)`,
+  md: `0px 7px 8px -4px rgba(${primaryShadow},0.2),
+  0px 12px 17px 2px rgba(${primaryShadow},0.14),
+  0px 5px 22px 4px rgba(${primaryShadow},0.12)`,
+  lg: `0px 7px 8px -4px rgba(${primaryShadow},0.2),
+    0px 12px 17px 2px rgba(${primaryShadow},0.14),
+    0px 5px 22px 4px rgba(${primaryShadow},0.12)`,
 };
 
 export const dimensions = {

@@ -1,4 +1,4 @@
-import { dimensions, zIndex } from "@styles/theme";
+import { dimensions, shadows, zIndex } from "@styles/theme";
 import styled from "styled-components";
 
 export const Container = styled.dialog`
@@ -23,12 +23,9 @@ export const Modal = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   padding: 1rem;
   border-radius: ${dimensions.borderRadius};
-  max-width: 100%;
+  width: 100%;
+  max-width: 30rem;
   max-height: 100%;
   overflow-y: auto;
-  box-shadow: ${({
-    theme,
-  }) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`};
+  box-shadow: ${shadows.lg};
 `;

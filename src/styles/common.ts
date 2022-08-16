@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { dimensions } from "./theme";
+import { dimensions, shadows } from "./theme";
 
 export interface StatusColorStyleProps {
   color?: "default" | "primary" | "danger" | "success";
@@ -101,11 +101,7 @@ export const Button = styled.button<ButtonProps>`
   transition: transform 300ms;
   text-transform: capitalize;
   border-radius: ${dimensions.borderRadius};
-  box-shadow: ${({
-    theme,
-  }) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`};
+  box-shadow: ${shadows.lg};
 
   ${({ size = "normal" }) => {
     if (size === "small") {
@@ -123,7 +119,7 @@ export const Button = styled.button<ButtonProps>`
 
   :hover {
     transform: scale(1.02);
-    box-shadow: 0 3px 15px #00000015;
+    box-shadow: ${shadows.sm};
   }
   :disabled {
     opacity: 0.7;

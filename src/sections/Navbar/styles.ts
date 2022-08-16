@@ -12,11 +12,7 @@ export const Header = styled.header`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  box-shadow: ${({
-    theme,
-  }) => `0px 2px 1px -1px rgba(${theme.colors.primaryShadow}, 0.2),
-      0px 1px 1px 0px rgba(${theme.colors.primaryShadow}, 0.14),
-     0px 1px 3px 0px rgba(${theme.colors.primaryShadow}, 0.12)`};
+  box-shadow: ${shadows.sm};
 `;
 
 export const Nav = styled.nav`
@@ -28,7 +24,6 @@ export const Nav = styled.nav`
   gap: 1rem;
   width: 100%;
   height: 100%;
-
   @supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
     backdrop-filter: blur(1rem);
   }
