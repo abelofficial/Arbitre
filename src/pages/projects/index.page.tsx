@@ -1,4 +1,4 @@
-import AuthButton from "@sections/AuthButton";
+import AuthButton from "@components/buttons/AuthButton";
 import Head from "next/head";
 import * as styles from "./styles";
 import { NextPageWithLayout } from "@types";
@@ -7,7 +7,8 @@ import {
   CurrentUserContext,
 } from "@provider/currentUser";
 import { useContext } from "react";
-import AddProject from "@sections/AddProject";
+import AddProject from "@components/buttons/AddProject";
+import ProjectsList from "@components/lists/ProjectsList";
 
 const Projects: NextPageWithLayout = () => {
   const { currentUser } =
@@ -21,7 +22,12 @@ const Projects: NextPageWithLayout = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <styles.Main>
-        {currentUser && <AddProject currentUser={currentUser} />}
+        {currentUser && (
+          <>
+            <AddProject currentUser={currentUser} />
+            <ProjectsList ownerId={currentUser.id} />
+          </>
+        )}
       </styles.Main>
     </div>
   );

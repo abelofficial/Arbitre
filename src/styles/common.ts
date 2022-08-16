@@ -49,6 +49,34 @@ export const StatusColorStyle = (isText = false) => css<StatusColorStyleProps>`
     `;
   }}
 `;
+
+export const StatusSvgColorStyle = css<StatusColorStyleProps>`
+  ${({ color = "default", theme }) => {
+    if (color === "danger") {
+      return css`
+        fill: ${theme.colors.red} !important;
+        stroke: ${theme.colors.red} !important;
+      `;
+    }
+    if (color === "success") {
+      return css`
+        fill: ${theme.colors.green} !important;
+        stroke: ${theme.colors.green} !important;
+      `;
+    }
+    if (color === "primary") {
+      return css`
+        fill: ${theme.colors.primary} !important;
+        stroke: ${theme.colors.primary} !important;
+      `;
+    }
+    return css`
+      fill: ${theme.colors.black} !important;
+      stroke: ${theme.colors.black} !important;
+    `;
+  }}
+`;
+
 export const PageTitle = styled.h1`
   font-size: 3rem;
   font-weight: 300;
