@@ -1,4 +1,4 @@
-import AuthButton from "@sections/AuthButton";
+import AuthButton from "@components/buttons/AuthButton";
 import Head from "next/head";
 import { LinkWithUnderline, Subtitle } from "@styles/common";
 import * as styles from "./index.styles";

@@ -1,6 +1,6 @@
 import Modal from "@components/hocs/Modal";
 import Spinner from "@components/icons/Spinner";
-import AuthButton from "@sections/AuthButton";
+import AuthButton from "@components/buttons/AuthButton";
 import UserProfile from "@sections/UserProfile";
 import { closeDrawer, selectDrawer } from "@store/slices/config";
 import {

@@ -1,6 +1,12 @@
 import { User } from "@prisma/client";
 import { Avatar } from "@sections/UserProfile/styles";
-import { Paragraph, HighlightedText } from "@styles/common";
+import {
+  Paragraph,
+  HighlightedText,
+  LinkWithUnderline,
+  Title,
+} from "@styles/common";
+import Link from "next/link";
 import * as styles from "./styles";
 
 export interface UsersCardProps {
@@ -15,6 +21,11 @@ const UsersCard = ({ user }: UsersCardProps) => {
         <Paragraph>{user.name}</Paragraph>
       </>
       <HighlightedText>{user.email} </HighlightedText>
+      <Link href={`/profile/${user.id}`} passHref>
+        <LinkWithUnderline href='dummy'>
+          <Title>open</Title>
+        </LinkWithUnderline>
+      </Link>
     </styles.Card>
   );
 };

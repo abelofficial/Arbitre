@@ -1,3 +1,4 @@
+import UpdateProjectButton from "@components/buttons/UpdateProjectButton";
 import ManageProjectForm from "@components/forms/ManageProjectForm";
 import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
 import Modal from "@components/hocs/Modal";
@@ -13,34 +14,17 @@ import * as styles from "./styles";
 
 export interface ProjectsCardProps {
   project: Project;
+  owner: boolean;
 }
 
-const ProjectsCard = ({ project }: ProjectsCardProps) => {
-  const [openModal, setOpenModal] = useState(false);
-  const { updateProjectStatus, updateProjectHandler } =
-    useContext<DbActionsContextInterface>(DbActionsContext);
-
+const ProjectsCard = ({ project, owner }: ProjectsCardProps) => {
   return (
     <styles.Card key={project.id}>
+      <styles.Header>
+        {owner && <UpdateProjectButton icon project={project} />}
+      </styles.Header>
       <Paragraph>{project.name}</Paragraph>
       <HighlightedText>{project.description} </HighlightedText>
-      <Modal
-        actionButton={
-          <Button color='success' onClick={() => setOpenModal(true)}>
-            {updateProjectStatus && <Spinner />}
-            Update project
-          </Button>
-        }
-        show={openModal}
-      >
-        <ManageProjectForm
-          defaultValues={project}
-          isSubmitting={updateProjectStatus}
-          mode='update'
-          onClose={() => setOpenModal(false)}
-          onSubmitAsync={updateProjectHandler}
-        />
-      </Modal>
     </styles.Card>
   );
 };

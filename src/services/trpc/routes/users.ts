@@ -21,6 +21,16 @@ const usersRouter = createRouter()
       return ctx.prisma.user.findUnique({ where: { email } });
     },
   })
+  .query("oneById", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { id } = input;
+
+      return ctx.prisma.user.findUnique({ where: { id } });
+    },
+  })
   .mutation("add", {
     input: z.object({
       name: z.string(),

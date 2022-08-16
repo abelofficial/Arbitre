@@ -3,14 +3,21 @@ import MessageScreen from "@sections/MessageScreen";
 import { Project } from "@prisma/client";
 import { trpc } from "@services/trpc";
 import { Subtitle } from "@styles/common";
-import React from "react";
+import React, { useContext } from "react";
 import * as styles from "./styles";
+import {
+  CurrentUserContext,
+  CurrentUserContextInterface,
+} from "@provider/currentUser";
 
-export interface UsersListProps {
+export interface ProjectsListProps {
   ownerId: string;
 }
 
-const UsersList = ({ ownerId }: UsersListProps) => {
+const ProjectsList = ({ ownerId }: ProjectsListProps) => {
+  const { currentUser } =
+    useContext<CurrentUserContextInterface>(CurrentUserContext);
+
   const { status, data: projects } = trpc.useQuery([
     "projects.all",
     { ownerId },
@@ -28,10 +35,14 @@ const UsersList = ({ ownerId }: UsersListProps) => {
   return (
     <styles.Container>
       {projects.map((p: Project) => (
-        <ProjectsCard key={p.id} project={p} />
+        <ProjectsCard
+          key={p.id}
+          project={p}
+          owner={currentUser?.id === p.ownerId}
+        />
       ))}
     </styles.Container>
   );
 };
 
-export default UsersList;
+export default ProjectsList;
