@@ -1,6 +1,54 @@
 import styled, { css } from "styled-components";
 import { dimensions } from "./theme";
 
+export interface StatusColorStyleProps {
+  color?: "default" | "primary" | "danger" | "success";
+}
+
+export const StatusColorStyle = (isText = false) => css<StatusColorStyleProps>`
+  ${({ color = "default", theme }) => {
+    if (color === "danger") {
+      return isText
+        ? css`
+            color: ${theme.red} !important;
+          `
+        : css`
+            background-color: ${theme.red};
+            color: ${theme.white};
+          `;
+    }
+    if (color === "success") {
+      return isText
+        ? css`
+            color: ${theme.green} !important;
+          `
+        : css`
+            background-color: ${theme.green};
+            color: ${theme.white};
+          `;
+    }
+    if (color === "primary") {
+      return isText
+        ? css`
+            color: ${theme.primary} !important;
+          `
+        : css`
+            background-color: ${theme.primary};
+            color: ${theme.white};
+          `;
+    }
+
+    if (isText) {
+      return css`
+        color: ${theme.lightGray} !important;
+      `;
+    }
+    return css`
+      background-color: ${theme.black};
+      color: ${theme.white};
+    `;
+  }}
+`;
 export const PageTitle = styled.h1`
   font-size: 3rem;
   font-weight: 300;
@@ -30,6 +78,7 @@ export const Paragraph = styled.p`
 `;
 
 export const HighlightedText = styled.p`
+  ${StatusColorStyle(true)}
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -37,24 +86,52 @@ export const HighlightedText = styled.p`
   color: ${({ theme }) => theme.lightGray};
 `;
 
-export const Button = styled.button`
-  cursor: pointer;
+interface ButtonProps {
+  color?: "primary" | "danger" | "success";
+  size?: "normal" | "small";
+}
+
+export const Button = styled.button<ButtonProps>`
+  ${StatusColorStyle()}
   display: flex;
-  flex-direction: row;
   gap: 0.5rem;
   align-items: center;
-  justify-content: space-around;
-  font-family: Roboto, Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  font-size: 0.875rem;
-  line-height: 1.75;
-  letter-spacing: 0.02857em;
-  text-transform: uppercase;
-  min-width: 64px;
-  padding: 5px 15px;
-  border-radius: 4px;
-  border: 1px solid rgba(144, 202, 249, 0.5);
-  color: rgb(144, 202, 249);
+  justify-content: center;
+  width: max-content;
+  transition: transform 300ms;
+  text-transform: capitalize;
+  border-radius: ${dimensions.borderRadius};
+  box-shadow: ${({
+    theme,
+  }) => `0px 2px 1px -1px rgba(${theme.primaryShadow}, 0.2),
+      0px 1px 1px 0px rgba(${theme.primaryShadow}, 0.14),
+     0px 1px 3px 0px rgba(${theme.primaryShadow}, 0.12)`};
+
+  ${({ size = "normal" }) => {
+    if (size === "small") {
+      return css`
+        padding: 0.2rem 0.6rem;
+        border-radius: 0.3rem;
+        font-size: 0.9rem;
+      `;
+    }
+    return css`
+      padding: 0.7rem 1rem;
+      border-radius: 0.5rem;
+    `;
+  }}
+
+  :hover {
+    transform: scale(1.02);
+    box-shadow: 0 3px 15px #00000015;
+  }
+  :disabled {
+    opacity: 0.7;
+    cursor: default;
+    :hover {
+      transform: none;
+    }
+  }
 `;
 
 export const Link = styled.a`

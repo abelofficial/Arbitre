@@ -1,5 +1,5 @@
 import ProjectsCard from "@components/cards/ProjectsCard";
-import MessageScreen from "@components/MessageScreen";
+import MessageScreen from "@sections/MessageScreen";
 import { Project } from "@prisma/client";
 import { trpc } from "@services/trpc";
 import { Subtitle } from "@styles/common";

@@ -1,6 +1,7 @@
 import React, { useState, memo } from "react";
+import UserProfile from "@sections/UserProfile";
 import Link from "next/link";
-import BurgerButton from "@components/Icons/BurgerButton";
+import BurgerButton from "@components/icons/BurgerButton";
 import * as styles from "./styles";
 
 const NavBar = () => {
@@ -20,10 +21,13 @@ const NavBar = () => {
             </styles.LogoLink>
           </Link>
         </styles.LogoContainer>
-        <BurgerButton
-          isShowing={isContentShowing}
-          handleClick={handleContentClick}
-        />
+        <styles.SectionContainer>
+          <UserProfile />
+          <BurgerButton
+            isShowing={isContentShowing}
+            handleClick={handleContentClick}
+          />
+        </styles.SectionContainer>
       </styles.Nav>
     </styles.Header>
   );

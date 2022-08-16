@@ -1,4 +1,4 @@
-import MessageScreen from "@components/MessageScreen";
+import MessageScreen from "@sections/MessageScreen";
 import { User } from "@prisma/client";
 import { trpc } from "@services/trpc";
 import { HighlightedText, Subtitle, Paragraph } from "@styles/common";

@@ -43,3 +43,9 @@ export const LogoLink = styled(LinkWithUnderline)`
   margin: 0 auto;
   display: block;
 `;
+
+export const SectionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: "red";
+`;
