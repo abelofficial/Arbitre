@@ -21,9 +21,7 @@ const Projects: NextPageWithLayout = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <styles.Main>
-        <styles.Title>Projects page</styles.Title>
         {currentUser && <AddProject currentUser={currentUser} />}
-        <AuthButton />
       </styles.Main>
     </div>
   );

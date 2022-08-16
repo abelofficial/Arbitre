@@ -18,14 +18,7 @@ const Home: NextPageWithLayout = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <styles.Main>
-        <styles.Title>Home page</styles.Title>
-        <Link href='/projects' passHref>
-          <LinkWithUnderline>
-            <Subtitle>Projects</Subtitle>
-          </LinkWithUnderline>
-        </Link>
         <UsersList />
-        <AuthButton />
       </styles.Main>
     </div>
   );

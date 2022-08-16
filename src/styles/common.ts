@@ -131,6 +131,9 @@ export const Button = styled.button<ButtonProps>`
 `;
 
 export const Link = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-weight: 500;
@@ -147,6 +150,7 @@ export interface BaseLinkWithUnderlineProps {
 
 export const LinkWithUnderline = styled.a<BaseLinkWithUnderlineProps>`
   position: relative;
+
   @media (min-width: ${dimensions.generalBreakpoint}) {
     ::after {
       content: "";
