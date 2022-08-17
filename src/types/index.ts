@@ -35,3 +35,8 @@ export type NextPageWithLayout = NextPage & {
 export interface ProjectWithOwner extends Project {
   owner: User;
 }
+
+export interface ILikesCreateValues {
+  projectId: string;
+  userId: string;
+}

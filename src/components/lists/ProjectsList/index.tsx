@@ -25,7 +25,7 @@ const ProjectsList = ({ ownerId }: ProjectsListProps) => {
 
   if (status === "loading") return <MessageScreen message='loading..' />;
 
-  if (!projects || status === "error")
+  if (!projects || !currentUser || status === "error")
     return <MessageScreen message='Something went wrong' />;
 
   if (projects.length === 0) {
@@ -38,7 +38,8 @@ const ProjectsList = ({ ownerId }: ProjectsListProps) => {
         <ProjectsCard
           key={p.id}
           project={p}
-          owner={currentUser?.id === p.ownerId}
+          isOwner={currentUser?.id === p.ownerId}
+          user={currentUser}
         />
       ))}
     </styles.Container>

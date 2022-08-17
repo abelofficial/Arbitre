@@ -1,30 +1,41 @@
-import UpdateProjectButton from "@components/buttons/UpdateProjectButton";
-import ManageProjectForm from "@components/forms/ManageProjectForm";
-import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
-import Modal from "@components/hocs/Modal";
-import Spinner from "@components/icons/Spinner";
-import { Project } from "@prisma/client";
-import {
-  DbActionsContextInterface,
-  DbActionsContext,
-} from "@provider/dbActions";
-import { Paragraph, HighlightedText, Button } from "@styles/common";
-import { useContext, useState } from "react";
+import LikeProjectButton from "@components/buttons/LikeProject";
+import UpdateProjectButton from "@components/buttons/UpdateProject";
+import { Project, User } from "@prisma/client";
+import { trpc } from "@services/trpc";
+import { Paragraph, HighlightedText, Title } from "@styles/common";
 import * as styles from "./styles";
 
 export interface ProjectsCardProps {
   project: Project;
-  owner: boolean;
+  isOwner: boolean;
+  user: User;
 }
 
-const ProjectsCard = ({ project, owner }: ProjectsCardProps) => {
+const ProjectsCard = ({ project, isOwner, user }: ProjectsCardProps) => {
+  const { status, data, error } = trpc.useQuery([
+    "likes.allProjectLikes",
+    { projectId: project.id },
+  ]);
+
+  if (status === "loading" || !data) return <Title>loading..</Title>;
+
+  const projectIsLiked = !!data.find((l) => l.userId === user.id);
+
   return (
     <styles.Card key={project.id}>
       <styles.Header>
-        {owner && <UpdateProjectButton icon project={project} />}
+        {isOwner && <UpdateProjectButton icon project={project} />}
       </styles.Header>
       <Paragraph>{project.name}</Paragraph>
       <HighlightedText>{project.description} </HighlightedText>
+      <styles.Footer>
+        <LikeProjectButton
+          currentUser={user}
+          project={project}
+          isLiked={projectIsLiked}
+        />
+        <HighlightedText>{`${data.length} likes`}</HighlightedText>
+      </styles.Footer>
     </styles.Card>
   );
 };

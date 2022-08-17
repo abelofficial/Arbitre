@@ -2,14 +2,17 @@ import { UserProfile } from "@auth0/nextjs-auth0";
 import { trpc } from "@services/trpc";
 import { createContext } from "react";
 import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
+import { ILikesCreateValues } from "@types";
 
 export interface DbActionsContextInterface {
   addUserStatus: boolean;
   addProjectStatus: boolean;
   updateProjectStatus: boolean;
+  likeProjectStatus: boolean;
   addProjectHandler: (ownerId: string, p: IProjectFormValues) => Promise<void>;
   addUserHandler: (u: UserProfile) => Promise<void>;
   updateProjectHandler: (p: IProjectFormValues) => Promise<void>;
+  likeProjectHandler: (p: ILikesCreateValues) => Promise<void>;
 }
 
 export const DbActionsContext = createContext<DbActionsContextInterface>(
@@ -50,6 +53,13 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
       },
     });
 
+  const { isLoading: likeProjectStatus, mutate: likeProjectCommand } =
+    trpc.useMutation("likes.toggleLike", {
+      async onSuccess() {
+        return await utils.invalidateQueries(["likes.allProjectLikes"]);
+      },
+    });
+
   // Actions ------------------------------------------------------------
 
   const addUserHandler = async (u: UserProfile) => {
@@ -82,15 +92,21 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
     } catch (e) {}
   };
 
+  const likeProjectHandler = async (p: ILikesCreateValues) => {
+    likeProjectCommand(p);
+  };
+
   return (
     <DbActionsContext.Provider
       value={{
         addUserStatus,
         addProjectStatus,
         updateProjectStatus,
+        likeProjectStatus,
         addProjectHandler,
         addUserHandler,
         updateProjectHandler,
+        likeProjectHandler,
       }}
     >
       {children}

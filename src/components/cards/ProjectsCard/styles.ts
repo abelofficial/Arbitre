@@ -20,4 +20,13 @@ export const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 1rem;
+`;
+
+export const Footer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
 `;

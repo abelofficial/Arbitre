@@ -9,6 +9,7 @@ const select = {
   updatedAt: true,
   ownerId: true,
   owner: true,
+  members: true,
 };
 
 const projectsRouter = createRouter()

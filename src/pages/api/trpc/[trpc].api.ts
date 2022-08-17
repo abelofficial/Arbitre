@@ -5,10 +5,14 @@ import usersRouter from "@services/trpc/routes/users";
 import * as trpcNext from "@trpc/server/adapters/next";
 import prisma from "@services/database";
 import projectsRouter from "@services/trpc/routes/projects";
+import likesRouter from "@services/trpc/routes/likes";
+import membersRouter from "@services/trpc/routes/members";
 
 export const appRouter = createRouter()
   .transformer(superjson)
   .merge("users.", usersRouter)
+  .merge("likes.", likesRouter)
+  .merge("members.", membersRouter)
   .merge("projects.", projectsRouter);
 
 export type AppRouter = typeof appRouter;

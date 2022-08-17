@@ -10,11 +10,11 @@ import {
 import { Button } from "@styles/common";
 import React, { useContext, useState } from "react";
 
-export interface AddProjectProps {
+export interface AddProjectButtonProps {
   currentUser: User;
 }
 
-const AddProject = ({ currentUser }: AddProjectProps) => {
+const AddProjectButton = ({ currentUser }: AddProjectButtonProps) => {
   const [openModal, setOpenModal] = useState(false);
   const { addProjectStatus, addProjectHandler } =
     useContext<DbActionsContextInterface>(DbActionsContext);
@@ -42,4 +42,4 @@ const AddProject = ({ currentUser }: AddProjectProps) => {
   );
 };
 
-export default AddProject;
+export default AddProjectButton;

@@ -28,26 +28,36 @@ const FullScreenNavbar = ({ children }: FullScreenNavbarProps) => {
     setTimeout(() => {
       dispatch(closeDrawer());
       setLoading(false);
-    }, 400);
+    }, 100);
   };
 
   return (
     <Modal show={isDrawerShowing} actionButton={undefined}>
-      <styles.Container>
-        <UserProfile />
-        <div onClickCapture={closeWithDelay}>
-          <Link href='/projects' passHref>
-            <BaseA href='dummy'>
-              {loading && <Spinner />}
-              <HighlightedText>projects</HighlightedText>
-            </BaseA>
-          </Link>
-        </div>
-        <AuthButton />
-        <Button color='danger' onClick={() => dispatch(closeDrawer())}>
-          close
-        </Button>
-      </styles.Container>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <styles.Container>
+          <div onClickCapture={closeWithDelay}>
+            <Link href='/profile' passHref>
+              <BaseA href='dummy'>
+                <HighlightedText>profile</HighlightedText>
+              </BaseA>
+            </Link>
+          </div>
+          <div onClickCapture={closeWithDelay}>
+            <Link href='/projects' passHref>
+              <BaseA href='dummy'>
+                {loading && <Spinner />}
+                <HighlightedText>projects</HighlightedText>
+              </BaseA>
+            </Link>
+          </div>
+          <AuthButton />
+          <Button color='danger' onClick={() => dispatch(closeDrawer())}>
+            close
+          </Button>
+        </styles.Container>
+      )}
     </Modal>
   );
 };

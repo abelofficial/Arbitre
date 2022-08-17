@@ -13,25 +13,37 @@ enum ProgressStatus {
   DONE
 }
 
+enum MemberStatus {
+  ACTIVE
+  PENDING
+  INACTIVE
+}
+
 model User {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   email     String    @unique
   name      String
   picture   String
-  projects  Project[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  projects  Project[]
+  members   Member[]
+  likes     Like[]
+  comments  Comment[]
 }
 
 model Project {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
-  ownerId     String   @db.ObjectId
-  owner       User     @relation(fields: [ownerId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Task        Task[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  ownerId     String    @db.ObjectId
+  owner       User      @relation(fields: [ownerId], references: [id])
+  tasks       Task[]
+  members     Member[]
+  likes       Like[]
+  comments    Comment[]
 }
 
 model Task {
@@ -43,16 +55,35 @@ model Task {
   project     Project        @relation(fields: [projectId], references: [id])
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-  SubTasks    SubTasks[]
 }
 
-model SubTasks {
-  id          String         @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  description String
-  status      ProgressStatus @default(CREATED)
-  taskId      String         @db.ObjectId
-  task        Task           @relation(fields: [taskId], references: [id])
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+model Member {
+  id        String       @id @default(auto()) @map("_id") @db.ObjectId
+  status    MemberStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  Project   Project?     @relation(fields: [projectId], references: [id])
+  projectId String?      @db.ObjectId
+  User      User?        @relation(fields: [userId], references: [id])
+  userId    String?      @db.ObjectId
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?  @db.ObjectId
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @db.ObjectId
+}
+
+model Like {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Project   Project? @relation(fields: [projectId], references: [id])
+  projectId String?  @db.ObjectId
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?  @db.ObjectId
 }
