@@ -1,3 +1,4 @@
+import AddProjectButton from "@components/buttons/AddProject";
 import ProjectsList from "@components/lists/ProjectsList";
 import {
   CurrentUserContextInterface,
@@ -13,6 +14,8 @@ import * as styles from "./styles";
 
 const ProfilePage: NextPageWithLayout = () => {
   const router = useRouter();
+  const { currentUser } =
+    useContext<CurrentUserContextInterface>(CurrentUserContext);
   const { userId } = router.query as { userId: string };
   const {
     status,
@@ -20,7 +23,7 @@ const ProfilePage: NextPageWithLayout = () => {
     error,
   } = trpc.useQuery(["users.oneById", { id: userId }]);
 
-  if (!user || status === "error") return <div>Loading...</div>;
+  if (!user || !currentUser || status === "error") return <div>Loading...</div>;
 
   return (
     <div>
@@ -31,6 +34,9 @@ const ProfilePage: NextPageWithLayout = () => {
       </Head>
       <styles.Main>
         <ProfileHeader user={user} />
+        {currentUser.id === user.id && (
+          <AddProjectButton currentUser={currentUser} />
+        )}
         <ProjectsList ownerId={user.id} />
       </styles.Main>
     </div>

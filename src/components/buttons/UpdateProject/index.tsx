@@ -1,12 +1,8 @@
 import ManageProjectForm from "@components/forms/ManageProjectForm";
 import Modal from "@components/hocs/Modal";
-import { EditIcon } from "@components/icons";
+import { EditIcon, EditIconProps } from "@components/icons";
 import Spinner from "@components/icons/Spinner";
 import { Project } from "@prisma/client";
-import {
-  CurrentUserContext,
-  CurrentUserContextInterface,
-} from "@provider/currentUser";
 import {
   DbActionsContextInterface,
   DbActionsContext,
