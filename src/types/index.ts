@@ -40,3 +40,8 @@ export interface ILikesCreateValues {
   projectId: string;
   userId: string;
 }
+
+export interface IFollowRequestCreateValues {
+  targetUserId: string;
+  userId: string;
+}

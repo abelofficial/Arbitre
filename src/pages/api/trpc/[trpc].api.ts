@@ -7,13 +7,15 @@ import prisma from "@services/database";
 import projectsRouter from "@services/trpc/routes/projects";
 import likesRouter from "@services/trpc/routes/likes";
 import membersRouter from "@services/trpc/routes/members";
+import followRequestRouter from "@services/trpc/routes/followRequest";
 
 export const appRouter = createRouter()
   .transformer(superjson)
   .merge("users.", usersRouter)
   .merge("likes.", likesRouter)
   .merge("members.", membersRouter)
-  .merge("projects.", projectsRouter);
+  .merge("projects.", projectsRouter)
+  .merge("followRequest.", followRequestRouter);
 
 export type AppRouter = typeof appRouter;
 
