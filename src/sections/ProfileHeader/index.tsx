@@ -4,7 +4,7 @@ import * as styles from "./styles";
 
 export interface ProfileHeaderProps {
   user: User;
-  followers: number;
+  followers?: number;
 }
 
 const ProfileHeader = ({ user, followers }: ProfileHeaderProps) => {
