@@ -2,17 +2,19 @@ import { UserProfile } from "@auth0/nextjs-auth0";
 import { trpc } from "@services/trpc";
 import { createContext } from "react";
 import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
-import { ILikesCreateValues } from "@types";
+import { IFollowRequestCreateValues, ILikesCreateValues } from "@types";
 
 export interface DbActionsContextInterface {
   addUserStatus: boolean;
   addProjectStatus: boolean;
   updateProjectStatus: boolean;
   likeProjectStatus: boolean;
+  followRequestStatus: boolean;
   addProjectHandler: (ownerId: string, p: IProjectFormValues) => Promise<void>;
   addUserHandler: (u: UserProfile) => Promise<void>;
   updateProjectHandler: (p: IProjectFormValues) => Promise<void>;
   likeProjectHandler: (p: ILikesCreateValues) => Promise<void>;
+  followUserHandler: (u: IFollowRequestCreateValues) => Promise<void>;
 }
 
 export const DbActionsContext = createContext<DbActionsContextInterface>(
@@ -60,6 +62,15 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
       },
     });
 
+  const { isLoading: followRequestStatus, mutate: followRequestCommand } =
+    trpc.useMutation("followRequest.toggleFollow", {
+      async onSuccess() {
+        return await utils.invalidateQueries([
+          "followRequest.allUserFollowers",
+        ]);
+      },
+    });
+
   // Actions ------------------------------------------------------------
 
   const addUserHandler = async (u: UserProfile) => {
@@ -96,6 +107,10 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
     likeProjectCommand(p);
   };
 
+  const followUserHandler = async (u: IFollowRequestCreateValues) => {
+    followRequestCommand(u);
+  };
+
   return (
     <DbActionsContext.Provider
       value={{
@@ -103,10 +118,12 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
         addProjectStatus,
         updateProjectStatus,
         likeProjectStatus,
+        followRequestStatus,
         addProjectHandler,
         addUserHandler,
         updateProjectHandler,
         likeProjectHandler,
+        followUserHandler,
       }}
     >
       {children}

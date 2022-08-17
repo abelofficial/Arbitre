@@ -1,4 +1,5 @@
 import AddProjectButton from "@components/buttons/AddProject";
+import FollowUserButton from "@components/buttons/FollowUser";
 import ProjectsList from "@components/lists/ProjectsList";
 import {
   CurrentUserContextInterface,
@@ -17,13 +18,14 @@ const ProfilePage: NextPageWithLayout = () => {
   const { currentUser } =
     useContext<CurrentUserContextInterface>(CurrentUserContext);
   const { userId } = router.query as { userId: string };
-  const {
-    status,
-    data: user,
-    error,
-  } = trpc.useQuery(["users.oneById", { id: userId }]);
+  const { data: user } = trpc.useQuery(["users.oneById", { id: userId }]);
 
-  if (!user || !currentUser || status === "error") return <div>Loading...</div>;
+  const { data: followRequest } = trpc.useQuery([
+    "followRequest.allUserFollowers",
+    { userId },
+  ]);
+
+  if (!user || !followRequest || !currentUser) return <div>Loading...</div>;
 
   return (
     <div>
@@ -33,9 +35,15 @@ const ProfilePage: NextPageWithLayout = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <styles.Main>
-        <ProfileHeader user={user} />
-        {currentUser.id === user.id && (
+        <ProfileHeader user={user} followers={followRequest.length} />
+        {currentUser.id === user.id ? (
           <AddProjectButton currentUser={currentUser} />
+        ) : (
+          <FollowUserButton
+            currentUserId={currentUser.id}
+            userId={user.id}
+            following={!!followRequest.find((fr) => fr.id === currentUser.id)}
+          />
         )}
         <ProjectsList ownerId={user.id} />
       </styles.Main>

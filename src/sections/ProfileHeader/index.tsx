@@ -1,12 +1,13 @@
-import { User } from "@prisma/client";
+import { FollowRequest, User } from "@prisma/client";
 import { Title } from "@styles/common";
 import * as styles from "./styles";
 
 export interface ProfileHeaderProps {
   user: User;
+  followers: number;
 }
 
-const ProfileHeader = ({ user }: ProfileHeaderProps) => {
+const ProfileHeader = ({ user, followers }: ProfileHeaderProps) => {
   return (
     <styles.Container>
       <styles.CoverImage
@@ -25,6 +26,7 @@ const ProfileHeader = ({ user }: ProfileHeaderProps) => {
           layout='fixed'
         />
         <Title> {user.name} </Title>
+        <Title> {`${followers} followers`} </Title>
       </styles.InfoSection>
     </styles.Container>
   );
