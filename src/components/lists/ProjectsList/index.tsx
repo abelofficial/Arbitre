@@ -1,15 +1,12 @@
 import ProjectsCard from "@components/cards/ProjectsCard";
 import MessageScreen from "@sections/MessageScreen";
-import { Project, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { trpc } from "@services/trpc";
 import { Subtitle } from "@styles/common";
-import React, { useContext } from "react";
+import React from "react";
 import * as styles from "./styles";
-import {
-  CurrentUserContext,
-  CurrentUserContextInterface,
-} from "@provider/currentUser";
 import { ProjectWithOwner } from "@types";
+import CardsSkeleton from "../CardsSkeleton";
 
 export interface ProjectsListProps {
   ownerId: string;
@@ -22,7 +19,7 @@ const ProjectsList = ({ ownerId, currentUser }: ProjectsListProps) => {
     { ownerId },
   ]);
 
-  if (status === "loading") return <MessageScreen message='loading..' />;
+  if (status === "loading") return <CardsSkeleton />;
 
   if (!projects || !currentUser || status === "error")
     return <MessageScreen message='Something went wrong' />;

@@ -249,3 +249,33 @@ export const FormErrorMsg = styled.p`
   font-weight: 600;
   color: "red";
 `;
+
+export const Skeleton = styled.div`
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
+  }
+  animation: skeleton-loading 1s linear infinite alternate;
+`;
+
+export const AvatarSkeleton = styled(Skeleton)`
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+`;
+
+export interface TextSkeletonProps {
+  width?: string;
+  height?: string;
+}
+
+export const TextSkeleton = styled(Skeleton)<TextSkeletonProps>`
+  width: 2rem;
+  margin: 0.2rem;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+`;

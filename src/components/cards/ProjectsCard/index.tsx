@@ -7,7 +7,7 @@ import { Paragraph, HighlightedText, Title } from "@styles/common";
 import { ProjectWithOwner } from "@types";
 import Link from "next/link";
 import * as styles from "./styles";
-
+import CardSkeleton from "@components/cards/CardSkeleton";
 export interface ProjectsCardProps {
   project: ProjectWithOwner;
   isOwner: boolean;
@@ -20,7 +20,7 @@ const ProjectsCard = ({ project, isOwner, user }: ProjectsCardProps) => {
     { projectId: project.id },
   ]);
 
-  if (status === "loading" || !data) return <Title>loading..</Title>;
+  if (status === "loading" || !data) return <CardSkeleton />;
 
   const projectIsLiked = !!data.find((l) => l.userId === user.id);
 
