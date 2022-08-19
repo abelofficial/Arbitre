@@ -12,6 +12,19 @@ const select = {
   members: true,
 };
 
+// OR: [
+//   { ownerId },
+//   {
+//     owner: {
+//       followers: {
+//         some: {
+//           userId: ownerId,
+//         },
+//       },
+//     },
+//   },
+// ],
+
 const projectsRouter = createRouter()
   .query("all", {
     input: z.object({
@@ -23,6 +36,35 @@ const projectsRouter = createRouter()
       return ctx.prisma.project.findMany({
         where: {
           ownerId,
+        },
+        orderBy: {
+          name: "asc",
+        },
+        select,
+      });
+    },
+  })
+  .query("allFeedsList", {
+    input: z.object({
+      ownerId: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const { ownerId } = input;
+
+      return ctx.prisma.project.findMany({
+        where: {
+          OR: [
+            { ownerId },
+            {
+              owner: {
+                followers: {
+                  some: {
+                    targetUserId: ownerId,
+                  },
+                },
+              },
+            },
+          ],
         },
         orderBy: {
           name: "asc",

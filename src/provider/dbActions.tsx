@@ -13,7 +13,7 @@ export interface DbActionsContextInterface {
   addProjectHandler: (ownerId: string, p: IProjectFormValues) => Promise<void>;
   addUserHandler: (u: UserProfile) => Promise<void>;
   updateProjectHandler: (p: IProjectFormValues) => Promise<void>;
-  likeProjectHandler: (p: ILikesCreateValues) => Promise<void>;
+  toggleProjectLikeHandler: (p: ILikesCreateValues) => Promise<void>;
   followUserHandler: (u: IFollowRequestCreateValues) => Promise<void>;
 }
 
@@ -55,7 +55,7 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
       },
     });
 
-  const { isLoading: likeProjectStatus, mutate: likeProjectCommand } =
+  const { isLoading: likeProjectStatus, mutate: toggleProjectLikeCommand } =
     trpc.useMutation("likes.toggleLike", {
       async onSuccess() {
         return await utils.invalidateQueries(["likes.allProjectLikes"]);
@@ -103,8 +103,8 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
     } catch (e) {}
   };
 
-  const likeProjectHandler = async (p: ILikesCreateValues) => {
-    likeProjectCommand(p);
+  const toggleProjectLikeHandler = async (p: ILikesCreateValues) => {
+    toggleProjectLikeCommand(p);
   };
 
   const followUserHandler = async (u: IFollowRequestCreateValues) => {
@@ -122,7 +122,7 @@ export const DbActionsProvider = ({ children }: DbActionsProviderProps) => {
         addProjectHandler,
         addUserHandler,
         updateProjectHandler,
-        likeProjectHandler,
+        toggleProjectLikeHandler,
         followUserHandler,
       }}
     >

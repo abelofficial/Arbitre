@@ -1,24 +1,20 @@
 import ProjectsCard from "@components/cards/ProjectsCard";
 import MessageScreen from "@sections/MessageScreen";
-import { Project, User } from "@prisma/client";
+import { User } from "@prisma/client";
 import { trpc } from "@services/trpc";
 import { Subtitle } from "@styles/common";
-import React, { useContext } from "react";
+import React from "react";
 import * as styles from "./styles";
-import {
-  CurrentUserContext,
-  CurrentUserContextInterface,
-} from "@provider/currentUser";
 import { ProjectWithOwner } from "@types";
 
-export interface ProjectsListProps {
-  ownerId: string;
+export interface FeedsListProps {
   currentUser: User;
 }
 
-const ProjectsList = ({ ownerId, currentUser }: ProjectsListProps) => {
+const FeedsList = ({ currentUser }: FeedsListProps) => {
+  const { id: ownerId } = currentUser;
   const { status, data: projects } = trpc.useQuery([
-    "projects.all",
+    "projects.allFeedsList",
     { ownerId },
   ]);
 
@@ -45,4 +41,4 @@ const ProjectsList = ({ ownerId, currentUser }: ProjectsListProps) => {
   );
 };
 
-export default ProjectsList;
+export default FeedsList;

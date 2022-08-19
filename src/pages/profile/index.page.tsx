@@ -4,6 +4,7 @@ import {
   CurrentUserContext,
 } from "@provider/currentUser";
 import ProfileHeader from "@sections/ProfileHeader";
+import { trpc } from "@services/trpc";
 import { NextPageWithLayout } from "@types";
 import Head from "next/head";
 import React, { useContext } from "react";
@@ -13,9 +14,23 @@ const ProfilePage: NextPageWithLayout = () => {
   const { currentUser } =
     useContext<CurrentUserContextInterface>(CurrentUserContext);
 
-  if (!currentUser) {
-    return <div>Loading...</div>;
-  }
+  const { data: user } = trpc.useQuery(
+    ["users.oneById", { id: currentUser?.id as string }],
+    {
+      enabled: !!currentUser,
+    }
+  );
+
+  const { data: followRequest } = trpc.useQuery(
+    ["followRequest.allUserFollowers", { userId: currentUser?.id as string }],
+    {
+      enabled: !!currentUser,
+    }
+  );
+
+  if (!user || !followRequest || !currentUser) return <div>Loading...</div>;
+
+  const isFollowing = followRequest.find((fr) => fr.id === currentUser.id);
 
   return (
     <div>
@@ -25,8 +40,8 @@ const ProfilePage: NextPageWithLayout = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <styles.Main>
-        <ProfileHeader user={currentUser} />
-        <ProjectsList ownerId={currentUser.id} />
+        <ProfileHeader user={currentUser} followers={0} />
+        <ProjectsList currentUser={currentUser} ownerId={currentUser.id} />
       </styles.Main>
     </div>
   );
