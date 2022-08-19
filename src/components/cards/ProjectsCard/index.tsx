@@ -1,12 +1,15 @@
 import LikeProjectButton from "@components/buttons/LikeProject";
 import UpdateProjectButton from "@components/buttons/UpdateProject";
-import { Project, User } from "@prisma/client";
+import { User } from "@prisma/client";
+import { Avatar } from "@sections/UserProfile/styles";
 import { trpc } from "@services/trpc";
 import { Paragraph, HighlightedText, Title } from "@styles/common";
+import { ProjectWithOwner } from "@types";
+import Link from "next/link";
 import * as styles from "./styles";
 
 export interface ProjectsCardProps {
-  project: Project;
+  project: ProjectWithOwner;
   isOwner: boolean;
   user: User;
 }
@@ -24,17 +27,25 @@ const ProjectsCard = ({ project, isOwner, user }: ProjectsCardProps) => {
   return (
     <styles.Card key={project.id}>
       <styles.Header>
+        <Avatar src={project.owner.picture} width={30} height={30} />
+        <styles.Column>
+          <Paragraph>{project.name}</Paragraph>
+          <Link href={`/profile/${project.owner.id}`} passHref>
+            <HighlightedText color='primary'>
+              <styles.SmallText>{`@${project.owner.name}`}</styles.SmallText>
+            </HighlightedText>
+          </Link>
+        </styles.Column>
         {isOwner && <UpdateProjectButton icon project={project} />}
       </styles.Header>
-      <Paragraph>{project.name}</Paragraph>
       <HighlightedText>{project.description} </HighlightedText>
       <styles.Footer>
         <LikeProjectButton
           currentUser={user}
           project={project}
-          isLiked={projectIsLiked}
+          liked={projectIsLiked}
+          likes={data.length}
         />
-        <HighlightedText>{`${data.length} likes`}</HighlightedText>
       </styles.Footer>
     </styles.Card>
   );

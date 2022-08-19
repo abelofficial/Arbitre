@@ -27,7 +27,7 @@ const Layout = ({ children }: NavbarProps) => {
       <Navbar />
       <styles.MainView>{children}</styles.MainView>
       <styles.Footer>
-        <Subtitle>Copyright &copy; {new Date().getFullYear()}</Subtitle>
+        <small>Copyright &copy; {new Date().getFullYear()}</small>
       </styles.Footer>
     </styles.Page>
   );

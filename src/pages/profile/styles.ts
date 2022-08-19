@@ -5,8 +5,14 @@ export const Main = styled.main`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
 `;
 
-export const Title = styled.h1``;
+export const SectionContainer = styled.main`
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+`;

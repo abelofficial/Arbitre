@@ -1,12 +1,18 @@
-import AuthButton from "@components/buttons/AuthButton";
 import Head from "next/head";
-import { LinkWithUnderline, Subtitle } from "@styles/common";
 import * as styles from "./index.styles";
 import { NextPageWithLayout } from "@types";
 import UsersList from "@components/lists/UsersList";
-import Link from "next/link";
+import FeedsList from "@components/lists/FeedsList";
+import {
+  CurrentUserContextInterface,
+  CurrentUserContext,
+} from "@provider/currentUser";
+import { useContext } from "react";
 
 const Home: NextPageWithLayout = () => {
+  const { currentUser } =
+    useContext<CurrentUserContextInterface>(CurrentUserContext);
+
   return (
     <div>
       <Head>
@@ -18,7 +24,7 @@ const Home: NextPageWithLayout = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <styles.Main>
-        <UsersList />
+        {currentUser && <FeedsList currentUser={currentUser} />}
       </styles.Main>
     </div>
   );

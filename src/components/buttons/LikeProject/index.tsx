@@ -5,37 +5,56 @@ import {
   DbActionsContextInterface,
   DbActionsContext,
 } from "@provider/dbActions";
+import { HighlightedText } from "@styles/common";
 import React, { useContext, useState } from "react";
 
 export interface LikeProjectButtonProps {
   currentUser: User;
   project: Project;
-  isLiked: boolean;
+  liked: boolean;
+  likes: number;
 }
 
 const LikeProjectButton = ({
   currentUser,
   project,
-  isLiked,
+  liked,
+  likes,
 }: LikeProjectButtonProps) => {
-  const [liked, setLiked] = useState(isLiked);
-  const { likeProjectStatus, likeProjectHandler } =
+  const [likesCount, setLikesCount] = useState(likes);
+  const [isLiked, setIsLiked] = useState(liked);
+  const { likeProjectStatus, toggleProjectLikeHandler } =
     useContext<DbActionsContextInterface>(DbActionsContext);
 
   const onClickHandler = () => {
-    likeProjectHandler({
+    toggleProjectLikeHandler({
       projectId: project.id,
       userId: currentUser.id,
     });
-    setLiked(!liked);
+
+    if (isLiked) {
+      setLikesCount(likesCount - 1);
+      setIsLiked(false);
+      return;
+    }
+    setLikesCount(likesCount + 1);
+    setIsLiked(true);
   };
 
-  if (likeProjectStatus) return <Spinner />;
+  // if (likeProjectStatus) return <Spinner />;
 
-  if (liked) {
-    return <LikedHeartIcon size='normal' onClick={onClickHandler} />;
-  }
-  return <HeartIcon size='normal' onClick={onClickHandler} />;
+  const icon = isLiked ? (
+    <LikedHeartIcon size='normal' onClick={onClickHandler} />
+  ) : (
+    <HeartIcon size='normal' onClick={onClickHandler} />
+  );
+
+  return (
+    <>
+      {icon}
+      <HighlightedText>{`${likesCount} likes`}</HighlightedText>
+    </>
+  );
 };
 
 export default LikeProjectButton;

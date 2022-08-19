@@ -19,8 +19,21 @@ export const Header = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 1rem;
+`;
+
+export const Column = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+`;
+
+export const SmallText = styled.small`
+  text-decoration: italic;
+  cursor: pointer;
 `;
 
 export const Footer = styled.div`

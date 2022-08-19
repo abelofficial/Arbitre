@@ -27,6 +27,8 @@ const ProfilePage: NextPageWithLayout = () => {
 
   if (!user || !followRequest || !currentUser) return <div>Loading...</div>;
 
+  const isFollowing = followRequest.find((fr) => fr.id === currentUser.id);
+
   return (
     <div>
       <Head>
@@ -36,16 +38,18 @@ const ProfilePage: NextPageWithLayout = () => {
       </Head>
       <styles.Main>
         <ProfileHeader user={user} followers={followRequest.length} />
-        {currentUser.id === user.id ? (
-          <AddProjectButton currentUser={currentUser} />
-        ) : (
-          <FollowUserButton
-            currentUserId={currentUser.id}
-            userId={user.id}
-            following={!!followRequest.find((fr) => fr.id === currentUser.id)}
-          />
-        )}
-        <ProjectsList ownerId={user.id} />
+        <styles.SectionContainer>
+          {currentUser.id === user.id ? (
+            <AddProjectButton currentUser={currentUser} />
+          ) : (
+            <FollowUserButton
+              currentUserId={currentUser.id}
+              userId={user.id}
+              following={!!isFollowing}
+            />
+          )}
+        </styles.SectionContainer>
+        <ProjectsList currentUser={currentUser} ownerId={user.id} />
       </styles.Main>
     </div>
   );

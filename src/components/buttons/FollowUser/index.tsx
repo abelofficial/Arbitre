@@ -7,7 +7,7 @@ import {
   DbActionsContextInterface,
   DbActionsContext,
 } from "@provider/dbActions";
-import { Button, HighlightedText } from "@styles/common";
+import { Button, HighlightedText, Paragraph } from "@styles/common";
 import React, { useContext, useState } from "react";
 
 export interface FollowUserButtonProps {
@@ -22,18 +22,17 @@ const FollowUserButton = ({
   following,
 }: FollowUserButtonProps) => {
   const [isFollowing, setIsFollowing] = useState(following);
-  const { followRequestStatus, followUserHandler } =
+  const { followUserHandler } =
     useContext<DbActionsContextInterface>(DbActionsContext);
 
   const onClickHandler = () => {
-    setIsFollowing(!isFollowing);
     followUserHandler({ userId: currentUserId, targetUserId: userId });
+    setIsFollowing(!isFollowing);
   };
 
-  if (followRequestStatus) return <Spinner />;
   return (
     <Button color='primary' onClick={onClickHandler}>
-      <HighlightedText>{isFollowing ? "Unfollow" : "Follow"}</HighlightedText>
+      <Paragraph>{isFollowing ? "Unfollow" : "Follow"}</Paragraph>
     </Button>
   );
 };

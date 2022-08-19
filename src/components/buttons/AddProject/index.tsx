@@ -7,7 +7,7 @@ import {
   DbActionsContextInterface,
   DbActionsContext,
 } from "@provider/dbActions";
-import { Button } from "@styles/common";
+import { Button, Paragraph } from "@styles/common";
 import React, { useContext, useState } from "react";
 
 export interface AddProjectButtonProps {
@@ -24,7 +24,7 @@ const AddProjectButton = ({ currentUser }: AddProjectButtonProps) => {
         actionButton={
           <Button onClick={() => setOpenModal(true)}>
             {addProjectStatus && <Spinner />}
-            Add new project
+            <Paragraph>Add new project</Paragraph>
           </Button>
         }
         show={openModal}
