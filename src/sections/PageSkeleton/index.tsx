@@ -1,4 +1,5 @@
 import Navbar from "@sections/Navbar";
+import NavBarSkeleton from "@sections/NavbarSkeleton";
 import { Title } from "@styles/common";
 import * as styles from "./styles";
 
@@ -9,13 +10,9 @@ export interface PageSkeletonProps {
 const PageSkeleton = ({ loadingComponent }: PageSkeletonProps) => {
   return (
     <styles.Page>
-      <Navbar />
+      <NavBarSkeleton />
       <styles.MainView>
-        {loadingComponent ? (
-          loadingComponent
-        ) : (
-          <Title>PageSkeleton: loading...</Title>
-        )}
+        {loadingComponent ? loadingComponent : <Title>loading...</Title>}
       </styles.MainView>
       <styles.Footer>
         <small>Copyright &copy; {new Date().getFullYear()}</small>

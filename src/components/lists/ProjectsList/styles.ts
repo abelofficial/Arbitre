@@ -10,3 +10,8 @@ export const Container = styled.section`
   align-items: center;
   justify-content: space--evenly;
 `;
+
+export const EmptyScreen = styled.div`
+  width: 100%;
+  text-align: center;
+`;

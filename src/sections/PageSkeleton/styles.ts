@@ -22,6 +22,10 @@ export const Footer = styled.main`
 export const MainView = styled.main`
   position: relative;
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 4rem 0rem;
   background-color: transparent;
   z-index: 0;

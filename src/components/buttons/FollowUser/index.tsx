@@ -1,13 +1,8 @@
-import ManageProjectForm from "@components/forms/ManageProjectForm";
-import { IProjectFormValues } from "@components/forms/ManageProjectForm/helper";
-import Modal from "@components/hocs/Modal";
-import Spinner from "@components/icons/Spinner";
-import { User } from "@prisma/client";
 import {
   DbActionsContextInterface,
   DbActionsContext,
 } from "@provider/dbActions";
-import { Button, HighlightedText, Paragraph } from "@styles/common";
+import { Button, Paragraph } from "@styles/common";
 import React, { useContext, useState } from "react";
 
 export interface FollowUserButtonProps {

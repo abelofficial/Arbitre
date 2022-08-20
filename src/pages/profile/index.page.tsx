@@ -1,3 +1,4 @@
+import CardsSkeleton from "@components/lists/CardsSkeleton";
 import ProjectsList from "@components/lists/ProjectsList";
 import {
   CurrentUserContextInterface,
@@ -28,9 +29,7 @@ const ProfilePage: NextPageWithLayout = () => {
     }
   );
 
-  if (!user || !followRequest || !currentUser) return <div>Loading...</div>;
-
-  const isFollowing = followRequest.find((fr) => fr.id === currentUser.id);
+  if (!user || !followRequest || !currentUser) return <CardsSkeleton />;
 
   return (
     <div>
@@ -40,7 +39,7 @@ const ProfilePage: NextPageWithLayout = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <styles.Main>
-        <ProfileHeader user={currentUser} followers={0} />
+        <ProfileHeader user={currentUser} followers={followRequest.length} />
         <ProjectsList currentUser={currentUser} ownerId={currentUser.id} />
       </styles.Main>
     </div>

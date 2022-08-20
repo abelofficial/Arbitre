@@ -1,3 +1,4 @@
+import { FollowRequestStatus } from "@prisma/client";
 import { z } from "zod";
 import createRouter from "../createRouter";
 
@@ -9,19 +10,24 @@ const followRequestRouter = createRouter()
     async resolve({ ctx, input }) {
       const { userId } = input;
 
-      const followers = await ctx.prisma.followRequest.findMany({
+      const friendsId = await ctx.prisma.followRequest.findMany({
         where: {
-          targetUserId: userId,
+          AND: [
+            { status: FollowRequestStatus.PENDING },
+            {
+              OR: [{ targetUserId: userId }, { userId: userId }],
+            },
+          ],
         },
         select: {
-          targetUserId: true,
+          userId: true,
         },
       });
 
       return ctx.prisma.user.findMany({
         where: {
           id: {
-            in: followers.map((f) => f.targetUserId as string),
+            in: friendsId.map((f) => f.userId as string),
           },
         },
         orderBy: {
@@ -45,7 +51,7 @@ const followRequestRouter = createRouter()
         },
       });
 
-      if (followRequest) {
+      if (followRequest !== null) {
         return ctx.prisma.followRequest.delete({
           where: {
             id: followRequest.id,
