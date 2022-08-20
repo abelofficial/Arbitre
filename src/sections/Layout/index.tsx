@@ -2,10 +2,10 @@ import { useUser } from "@auth0/nextjs-auth0";
 import MessageScreen from "@sections/MessageScreen";
 import Navbar from "@sections/Navbar";
 import { CurrentUserProvider } from "@provider/currentUser";
-import { Subtitle } from "@styles/common";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import * as styles from "./styles";
+import PageSkeleton from "@sections/PageSkeleton";
 
 export interface NavbarProps {
   children: React.ReactNode;
@@ -33,14 +33,8 @@ const Layout = ({ children }: NavbarProps) => {
   );
   if (router.pathname === "/auth") return pageContent;
 
-  if (isUserLoading) {
-    return <MessageScreen message='Layout: loading...' />;
-  }
-
-  if (!user) {
-    return (
-      <MessageScreen message='Layout: something went wrong, try refreshing...' />
-    );
+  if (isUserLoading || !user) {
+    return <PageSkeleton />;
   }
 
   return (

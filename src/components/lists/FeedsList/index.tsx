@@ -6,6 +6,8 @@ import { Subtitle } from "@styles/common";
 import React from "react";
 import * as styles from "./styles";
 import { ProjectWithOwner } from "@types";
+import CardSkeleton from "@components/cards/CardSkeleton";
+import CardsSkeleton from "../CardsSkeleton";
 
 export interface FeedsListProps {
   currentUser: User;
@@ -18,7 +20,7 @@ const FeedsList = ({ currentUser }: FeedsListProps) => {
     { ownerId },
   ]);
 
-  if (status === "loading") return <MessageScreen message='loading..' />;
+  if (status === "loading") return <CardsSkeleton />;
 
   if (!projects || !currentUser || status === "error")
     return <MessageScreen message='Something went wrong' />;

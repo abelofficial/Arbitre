@@ -5,6 +5,7 @@ import { trpc } from "@services/trpc";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect } from "react";
 import { DbActionsContextInterface, DbActionsContext } from "./dbActions";
+import PageSkeleton from "@sections/PageSkeleton";
 
 export interface CurrentUserContextInterface {
   currentUser: User | undefined;
@@ -44,7 +45,7 @@ export const CurrentUserProvider = ({
   }, [email, currentUser, currentUserStatus]);
 
   if (currentUserStatus === "loading") {
-    return <MessageScreen message='loadings current..' />;
+    return <PageSkeleton />;
   }
 
   if (currentUserStatus === "error") {
