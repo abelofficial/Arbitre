@@ -19,8 +19,8 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <StateProvider store={store}>
         <ThemeProvider theme={darkTheme}>
           <UserProvider>
-            <GlobalStyles />
             <Layout>
+              <GlobalStyles />
               <Component {...pageProps} />
             </Layout>
           </UserProvider>
