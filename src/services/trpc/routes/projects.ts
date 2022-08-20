@@ -1,3 +1,4 @@
+import { FollowRequestStatus } from "@prisma/client";
 import { z } from "zod";
 import createRouter from "../createRouter";
 
@@ -12,21 +13,23 @@ const select = {
   members: true,
 };
 
-// OR: [
-//   { ownerId },
-//   {
-//     owner: {
-//       followers: {
-//         some: {
-//           userId: ownerId,
-//         },
-//       },
-//     },
-//   },
-// ],
-
 const projectsRouter = createRouter()
   .query("all", {
+    async resolve({ ctx }) {
+      return ctx.prisma.project.findMany({
+        where: {
+          NOT: {
+            description: "",
+          },
+        },
+        orderBy: {
+          name: "asc",
+        },
+        select,
+      });
+    },
+  })
+  .query("findUserProjects", {
     input: z.object({
       ownerId: z.string(),
     }),
@@ -35,7 +38,7 @@ const projectsRouter = createRouter()
 
       return ctx.prisma.project.findMany({
         where: {
-          ownerId,
+          ownerId: ownerId,
         },
         orderBy: {
           name: "asc",
@@ -51,16 +54,33 @@ const projectsRouter = createRouter()
     async resolve({ ctx, input }) {
       const { ownerId } = input;
 
+      const friendsId = await ctx.prisma.followRequest.findMany({
+        where: {
+          AND: [
+            { status: FollowRequestStatus.PENDING },
+            {
+              OR: [
+                {
+                  userId: ownerId,
+                },
+              ],
+            },
+          ],
+        },
+        select: {
+          userId: true,
+          targetUserId: true,
+        },
+      });
+
       return ctx.prisma.project.findMany({
         where: {
           OR: [
             { ownerId },
             {
               owner: {
-                followers: {
-                  some: {
-                    targetUserId: ownerId,
-                  },
+                id: {
+                  in: friendsId.map((f) => f.targetUserId as string),
                 },
               },
             },

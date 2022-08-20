@@ -1,6 +1,6 @@
 import Head from "next/head";
 import * as styles from "./styles";
-import { NextPageWithLayout } from "@types";
+import { NextPageWithLayout, ProjectWithOwner } from "@types";
 import {
   CurrentUserContextInterface,
   CurrentUserContext,
@@ -8,10 +8,16 @@ import {
 import { useContext } from "react";
 import AddProject from "@components/buttons/AddProject";
 import FeedsList from "@components/lists/FeedsList";
+import { trpc } from "@services/trpc";
+import CardsSkeleton from "@components/lists/CardsSkeleton";
+import { date } from "zod";
 
 const Projects: NextPageWithLayout = () => {
   const { currentUser } =
     useContext<CurrentUserContextInterface>(CurrentUserContext);
+  const { status, data } = trpc.useQuery(["projects.all"]);
+
+  if (status === "loading" || !data) return <CardsSkeleton />;
 
   return (
     <div>
@@ -24,7 +30,10 @@ const Projects: NextPageWithLayout = () => {
         {currentUser && (
           <>
             <AddProject currentUser={currentUser} />
-            <FeedsList currentUser={currentUser} />
+            <FeedsList
+              currentUser={currentUser}
+              defaultValue={{ status, data: data }}
+            />
           </>
         )}
       </styles.Main>

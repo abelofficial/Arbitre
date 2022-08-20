@@ -11,14 +11,17 @@ import CardsSkeleton from "../CardsSkeleton";
 
 export interface FeedsListProps {
   currentUser: User;
+  defaultValue?: {
+    data: ProjectWithOwner[];
+    status: "error" | "idle" | "loading" | "success";
+  };
 }
 
-const FeedsList = ({ currentUser }: FeedsListProps) => {
+const FeedsList = ({ currentUser, defaultValue }: FeedsListProps) => {
   const { id: ownerId } = currentUser;
-  const { status, data: projects } = trpc.useQuery([
-    "projects.allFeedsList",
-    { ownerId },
-  ]);
+  const { status, data: projects } = defaultValue
+    ? defaultValue
+    : trpc.useQuery(["projects.allFeedsList", { ownerId }]);
 
   if (status === "loading") return <CardsSkeleton />;
 

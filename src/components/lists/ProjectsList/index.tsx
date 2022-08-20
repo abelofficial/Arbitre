@@ -15,7 +15,7 @@ export interface ProjectsListProps {
 
 const ProjectsList = ({ ownerId, currentUser }: ProjectsListProps) => {
   const { status, data: projects } = trpc.useQuery([
-    "projects.all",
+    "projects.findUserProjects",
     { ownerId },
   ]);
 
@@ -25,7 +25,11 @@ const ProjectsList = ({ ownerId, currentUser }: ProjectsListProps) => {
     return <MessageScreen message='Something went wrong' />;
 
   if (projects.length === 0) {
-    return <Subtitle>No projects</Subtitle>;
+    return (
+      <styles.EmptyScreen>
+        <Subtitle>No projects</Subtitle>
+      </styles.EmptyScreen>
+    );
   }
 
   return (
